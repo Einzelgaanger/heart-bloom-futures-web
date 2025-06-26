@@ -8,9 +8,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,24 +28,40 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log("Form submitted:", formData);
+    setLoading(true);
     
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting us. We'll get back to you within 24 hours.",
-    });
-    
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: ""
-    });
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([formData]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for contacting us. We'll get back to you within 24 hours.",
+      });
+      
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: ""
+      });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -51,10 +69,10 @@ const Contact = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-red-50 to-orange-50">
+      <section className="py-20 bg-red-600">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold text-gray-800 mb-6 animate-fade-in">Contact Us</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in">
+          <h1 className="text-5xl font-bold text-white mb-6">Contact Us</h1>
+          <p className="text-xl text-red-50 max-w-3xl mx-auto">
             Get in touch with us to learn more about our programs, volunteer opportunities, or partnership possibilities
           </p>
         </div>
@@ -69,7 +87,7 @@ const Contact = () => {
               <h2 className="text-3xl font-bold text-gray-800 mb-8">Get In Touch</h2>
               
               <div className="space-y-6">
-                <Card className="hover:shadow-lg transition-shadow">
+                <Card className="hover:shadow-lg transition-shadow border-green-200">
                   <CardContent className="flex items-center space-x-4 p-6">
                     <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
                       <Mail className="h-6 w-6 text-red-600" />
@@ -82,20 +100,20 @@ const Contact = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-lg transition-shadow">
+                <Card className="hover:shadow-lg transition-shadow border-green-200">
                   <CardContent className="flex items-center space-x-4 p-6">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <Phone className="h-6 w-6 text-blue-600" />
+                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                      <Phone className="h-6 w-6 text-green-600" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-800">Phone Numbers</h3>
-                      <p className="text-gray-600">Main: +1 (555) 123-4567</p>
+                      <p className="text-gray-600">Main: +254 700 861 129</p>
                       <p className="text-gray-600">Emergency: +1 (555) 123-4568</p>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-lg transition-shadow">
+                <Card className="hover:shadow-lg transition-shadow border-green-200">
                   <CardContent className="flex items-center space-x-4 p-6">
                     <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                       <MapPin className="h-6 w-6 text-green-600" />
@@ -109,10 +127,10 @@ const Contact = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-lg transition-shadow">
+                <Card className="hover:shadow-lg transition-shadow border-green-200">
                   <CardContent className="flex items-center space-x-4 p-6">
-                    <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <Clock className="h-6 w-6 text-purple-600" />
+                    <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                      <Clock className="h-6 w-6 text-red-600" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-800">Office Hours</h3>
@@ -127,7 +145,7 @@ const Contact = () => {
 
             {/* Contact Form */}
             <div>
-              <Card className="shadow-lg">
+              <Card className="shadow-lg border-green-200">
                 <CardHeader>
                   <CardTitle className="text-2xl text-gray-800">Send Us a Message</CardTitle>
                   <p className="text-gray-600">
@@ -149,6 +167,7 @@ const Contact = () => {
                           value={formData.name}
                           onChange={handleInputChange}
                           placeholder="Your full name"
+                          className="border-green-200 focus:border-green-500"
                         />
                       </div>
                       <div>
@@ -163,6 +182,7 @@ const Contact = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           placeholder="your.email@example.com"
+                          className="border-green-200 focus:border-green-500"
                         />
                       </div>
                     </div>
@@ -178,7 +198,8 @@ const Contact = () => {
                           type="tel"
                           value={formData.phone}
                           onChange={handleInputChange}
-                          placeholder="+1 (555) 123-4567"
+                          placeholder="+254 700 000 000"
+                          className="border-green-200 focus:border-green-500"
                         />
                       </div>
                       <div>
@@ -193,6 +214,7 @@ const Contact = () => {
                           value={formData.subject}
                           onChange={handleInputChange}
                           placeholder="How can we help?"
+                          className="border-green-200 focus:border-green-500"
                         />
                       </div>
                     </div>
@@ -209,12 +231,18 @@ const Contact = () => {
                         value={formData.message}
                         onChange={handleInputChange}
                         placeholder="Tell us more about your inquiry, program interest, or how you'd like to get involved..."
+                        className="border-green-200 focus:border-green-500"
                       />
                     </div>
 
-                    <Button type="submit" size="lg" className="w-full bg-red-600 hover:bg-red-700">
+                    <Button 
+                      type="submit" 
+                      size="lg" 
+                      className="w-full bg-red-600 hover:bg-red-700"
+                      disabled={loading}
+                    >
                       <Send className="mr-2 h-5 w-5" />
-                      Send Message
+                      {loading ? "Sending..." : "Send Message"}
                     </Button>
                   </form>
                 </CardContent>
