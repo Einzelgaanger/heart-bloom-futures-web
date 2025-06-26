@@ -32,12 +32,23 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     
+    console.log('Submitting form data:', formData);
+    
     try {
       const { error } = await supabase
         .from('contact_messages')
-        .insert([formData]);
+        .insert([{
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || null,
+          subject: formData.subject,
+          message: formData.message
+        }]);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
 
       toast({
         title: "Message Sent!",
@@ -69,10 +80,10 @@ const Contact = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="py-20 bg-red-600">
+      <section className="py-20 bg-black">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold text-white mb-6">Contact Us</h1>
-          <p className="text-xl text-red-50 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Get in touch with us to learn more about our programs, volunteer opportunities, or partnership possibilities
           </p>
         </div>
@@ -84,42 +95,42 @@ const Contact = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Information */}
             <div>
-              <h2 className="text-3xl font-bold text-gray-800 mb-8">Get In Touch</h2>
+              <h2 className="text-3xl font-bold text-black mb-8">Get In Touch</h2>
               
               <div className="space-y-6">
-                <Card className="hover:shadow-lg transition-shadow border-green-200">
+                <Card className="hover:shadow-lg transition-shadow border-gray-200">
                   <CardContent className="flex items-center space-x-4 p-6">
                     <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
                       <Mail className="h-6 w-6 text-red-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-800">Email Address</h3>
+                      <h3 className="font-semibold text-black">Email Address</h3>
                       <p className="text-gray-600">info@santasheart.org</p>
                       <p className="text-gray-600">programs@santasheart.org</p>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-lg transition-shadow border-green-200">
+                <Card className="hover:shadow-lg transition-shadow border-gray-200">
                   <CardContent className="flex items-center space-x-4 p-6">
-                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                      <Phone className="h-6 w-6 text-green-600" />
+                    <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                      <Phone className="h-6 w-6 text-red-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-800">Phone Numbers</h3>
+                      <h3 className="font-semibold text-black">Phone Numbers</h3>
                       <p className="text-gray-600">Main: +254 700 861 129</p>
                       <p className="text-gray-600">Emergency: +1 (555) 123-4568</p>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-lg transition-shadow border-green-200">
+                <Card className="hover:shadow-lg transition-shadow border-gray-200">
                   <CardContent className="flex items-center space-x-4 p-6">
-                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                      <MapPin className="h-6 w-6 text-green-600" />
+                    <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                      <MapPin className="h-6 w-6 text-red-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-800">Address</h3>
+                      <h3 className="font-semibold text-black">Address</h3>
                       <p className="text-gray-600">123 Hope Street</p>
                       <p className="text-gray-600">Community Center, Floor 2</p>
                       <p className="text-gray-600">City, State 12345</p>
@@ -127,13 +138,13 @@ const Contact = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-lg transition-shadow border-green-200">
+                <Card className="hover:shadow-lg transition-shadow border-gray-200">
                   <CardContent className="flex items-center space-x-4 p-6">
                     <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
                       <Clock className="h-6 w-6 text-red-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-800">Office Hours</h3>
+                      <h3 className="font-semibold text-black">Office Hours</h3>
                       <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
                       <p className="text-gray-600">Saturday: 10:00 AM - 4:00 PM</p>
                       <p className="text-gray-600">Sunday: By appointment</p>
@@ -145,9 +156,9 @@ const Contact = () => {
 
             {/* Contact Form */}
             <div>
-              <Card className="shadow-lg border-green-200">
+              <Card className="shadow-lg border-gray-200">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-gray-800">Send Us a Message</CardTitle>
+                  <CardTitle className="text-2xl text-black">Send Us a Message</CardTitle>
                   <p className="text-gray-600">
                     Fill out the form below and we'll get back to you as soon as possible.
                   </p>
@@ -156,7 +167,7 @@ const Contact = () => {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="name" className="block text-sm font-medium text-black mb-2">
                           Full Name *
                         </label>
                         <Input
@@ -167,11 +178,11 @@ const Contact = () => {
                           value={formData.name}
                           onChange={handleInputChange}
                           placeholder="Your full name"
-                          className="border-green-200 focus:border-green-500"
+                          className="border-gray-200 focus:border-red-500"
                         />
                       </div>
                       <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="email" className="block text-sm font-medium text-black mb-2">
                           Email Address *
                         </label>
                         <Input
@@ -182,14 +193,14 @@ const Contact = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           placeholder="your.email@example.com"
-                          className="border-green-200 focus:border-green-500"
+                          className="border-gray-200 focus:border-red-500"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="phone" className="block text-sm font-medium text-black mb-2">
                           Phone Number
                         </label>
                         <Input
@@ -199,11 +210,11 @@ const Contact = () => {
                           value={formData.phone}
                           onChange={handleInputChange}
                           placeholder="+254 700 000 000"
-                          className="border-green-200 focus:border-green-500"
+                          className="border-gray-200 focus:border-red-500"
                         />
                       </div>
                       <div>
-                        <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="subject" className="block text-sm font-medium text-black mb-2">
                           Subject *
                         </label>
                         <Input
@@ -214,13 +225,13 @@ const Contact = () => {
                           value={formData.subject}
                           onChange={handleInputChange}
                           placeholder="How can we help?"
-                          className="border-green-200 focus:border-green-500"
+                          className="border-gray-200 focus:border-red-500"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="message" className="block text-sm font-medium text-black mb-2">
                         Message *
                       </label>
                       <Textarea
@@ -231,7 +242,7 @@ const Contact = () => {
                         value={formData.message}
                         onChange={handleInputChange}
                         placeholder="Tell us more about your inquiry, program interest, or how you'd like to get involved..."
-                        className="border-green-200 focus:border-green-500"
+                        className="border-gray-200 focus:border-red-500"
                       />
                     </div>
 

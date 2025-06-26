@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import AdminLogin from '@/components/AdminLogin';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Settings, Calendar, MapPin, TrendingUp, LogOut, Plus, Edit, Trash, Mail, Eye, EyeOff } from "lucide-react";
+import { Settings, Calendar, MapPin, TrendingUp, LogOut, Plus, Edit, Trash, Mail, Eye } from "lucide-react";
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -81,6 +80,8 @@ const Admin = () => {
         .order('created_at', { ascending: false });
       setMessages(messagesData || []);
 
+      console.log('Fetched data:', { settingsData, eventsData, visitsData, messagesData });
+
     } catch (error) {
       console.error('Error fetching data:', error);
       toast({
@@ -97,7 +98,7 @@ const Admin = () => {
     try {
       const { error } = await supabase
         .from('admin_settings')
-        .upsert({ key, value });
+        .upsert({ key, value }, { onConflict: 'key' });
 
       if (error) throw error;
 
@@ -117,6 +118,15 @@ const Admin = () => {
   };
 
   const addEvent = async () => {
+    if (!newEvent.title || !newEvent.date) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       const { error } = await supabase
         .from('events')
@@ -141,10 +151,25 @@ const Admin = () => {
   };
 
   const updateEvent = async () => {
+    if (!editingEvent.title || !editingEvent.date) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       const { error } = await supabase
         .from('events')
-        .update(editingEvent)
+        .update({
+          title: editingEvent.title,
+          description: editingEvent.description,
+          date: editingEvent.date,
+          location: editingEvent.location,
+          image_url: editingEvent.image_url
+        })
         .eq('id', editingEvent.id);
 
       if (error) throw error;
@@ -165,12 +190,50 @@ const Admin = () => {
     }
   };
 
+  const deleteEvent = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this event?')) return;
+
+    try {
+      const { error } = await supabase
+        .from('events')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      fetchData();
+      toast({
+        title: "Success",
+        description: "Event deleted successfully",
+      });
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete event",
+        variant: "destructive",
+      });
+    }
+  };
+
   const addVisit = async () => {
+    if (!newVisit.title || !newVisit.visit_date) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       const visitData = {
-        ...newVisit,
-        activities: newVisit.activities.split(',').map(s => s.trim()),
-        impact_metrics: JSON.parse(newVisit.impact_metrics || '{}')
+        title: newVisit.title,
+        description: newVisit.description,
+        location: newVisit.location,
+        visit_date: newVisit.visit_date,
+        activities: newVisit.activities ? newVisit.activities.split(',').map(s => s.trim()) : [],
+        impact_metrics: newVisit.impact_metrics ? JSON.parse(newVisit.impact_metrics) : {}
       };
 
       const { error } = await supabase
@@ -196,11 +259,27 @@ const Admin = () => {
   };
 
   const updateVisit = async () => {
+    if (!editingVisit.title || !editingVisit.visit_date) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       const visitData = {
-        ...editingVisit,
-        activities: editingVisit.activities.split(',').map((s: string) => s.trim()),
-        impact_metrics: JSON.parse(editingVisit.impact_metrics || '{}')
+        title: editingVisit.title,
+        description: editingVisit.description,
+        location: editingVisit.location,
+        visit_date: editingVisit.visit_date,
+        activities: typeof editingVisit.activities === 'string' 
+          ? editingVisit.activities.split(',').map((s: string) => s.trim())
+          : editingVisit.activities,
+        impact_metrics: typeof editingVisit.impact_metrics === 'string'
+          ? JSON.parse(editingVisit.impact_metrics)
+          : editingVisit.impact_metrics
       };
 
       const { error } = await supabase
@@ -226,31 +305,9 @@ const Admin = () => {
     }
   };
 
-  const deleteEvent = async (id: string) => {
-    try {
-      const { error } = await supabase
-        .from('events')
-        .delete()
-        .eq('id', id);
-
-      if (error) throw error;
-
-      fetchData();
-      toast({
-        title: "Success",
-        description: "Event deleted successfully",
-      });
-    } catch (error) {
-      console.error('Error deleting event:', error);
-      toast({
-        title: "Error",
-        description: "Failed to delete event",
-        variant: "destructive",
-      });
-    }
-  };
-
   const deleteVisit = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this visit?')) return;
+
     try {
       const { error } = await supabase
         .from('visits')
@@ -299,6 +356,8 @@ const Admin = () => {
   };
 
   const deleteMessage = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this message?')) return;
+
     try {
       const { error } = await supabase
         .from('contact_messages')
@@ -330,7 +389,7 @@ const Admin = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-green-600">Santa's Heart Admin</h1>
+          <h1 className="text-2xl font-bold text-red-600">Santa's Heart Admin</h1>
           <Button 
             onClick={() => setIsAuthenticated(false)}
             variant="outline"
@@ -343,11 +402,11 @@ const Admin = () => {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="settings" className="space-y-6">
+        <Tabs defaultValue="messages" className="space-y-6">
           <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="settings" className="flex items-center gap-2">
-              <Settings className="h-4 w-4" />
-              Settings
+            <TabsTrigger value="messages" className="flex items-center gap-2">
+              <Mail className="h-4 w-4" />
+              Messages
             </TabsTrigger>
             <TabsTrigger value="events" className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
@@ -357,9 +416,9 @@ const Admin = () => {
               <MapPin className="h-4 w-4" />
               Visits
             </TabsTrigger>
-            <TabsTrigger value="messages" className="flex items-center gap-2">
-              <Mail className="h-4 w-4" />
-              Messages
+            <TabsTrigger value="settings" className="flex items-center gap-2">
+              <Settings className="h-4 w-4" />
+              Settings
             </TabsTrigger>
             <TabsTrigger value="stats" className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
@@ -367,45 +426,67 @@ const Admin = () => {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="settings" className="space-y-6">
+          <TabsContent value="messages" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Site Settings</CardTitle>
+                <CardTitle>Contact Messages ({messages.filter(m => !m.read).length} unread)</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label>Total Donations ($)</Label>
-                    <Input
-                      value={settings.total_donations || ''}
-                      onChange={(e) => updateSetting('total_donations', e.target.value)}
-                      placeholder="Enter total donations"
-                    />
-                  </div>
-                  <div>
-                    <Label>Children Reached</Label>
-                    <Input
-                      value={settings.children_reached || ''}
-                      onChange={(e) => updateSetting('children_reached', e.target.value)}
-                      placeholder="Enter children reached"
-                    />
-                  </div>
-                  <div>
-                    <Label>Programs Completed</Label>
-                    <Input
-                      value={settings.programs_completed || ''}
-                      onChange={(e) => updateSetting('programs_completed', e.target.value)}
-                      placeholder="Enter programs completed"
-                    />
-                  </div>
-                  <div>
-                    <Label>Community Partners</Label>
-                    <Input
-                      value={settings.community_partners || ''}
-                      onChange={(e) => updateSetting('community_partners', e.target.value)}
-                      placeholder="Enter community partners"
-                    />
-                  </div>
+              <CardContent>
+                <div className="space-y-4">
+                  {messages.map((message) => (
+                    <div key={message.id} className={`p-4 border rounded-lg ${message.read ? 'bg-gray-50' : 'bg-white border-red-200'}`}>
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <h3 className="font-semibold">{message.name}</h3>
+                            {!message.read && (
+                              <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">New</span>
+                            )}
+                          </div>
+                          <p className="text-sm text-gray-600 mb-1">
+                            <strong>Email:</strong> {message.email}
+                          </p>
+                          {message.phone && (
+                            <p className="text-sm text-gray-600 mb-1">
+                              <strong>Phone:</strong> {message.phone}
+                            </p>
+                          )}
+                          <p className="text-sm text-gray-600 mb-2">
+                            <strong>Subject:</strong> {message.subject}
+                          </p>
+                          <p className="text-sm text-gray-700 mb-2">{message.message}</p>
+                          <p className="text-xs text-gray-500">
+                            {new Date(message.created_at).toLocaleString()}
+                          </p>
+                        </div>
+                        <div className="flex gap-2 ml-4">
+                          {!message.read && (
+                            <Button
+                              onClick={() => markMessageAsRead(message.id)}
+                              variant="outline"
+                              size="sm"
+                              className="text-red-600 border-red-600 hover:bg-red-50"
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                          )}
+                          <Button
+                            onClick={() => deleteMessage(message.id)}
+                            variant="outline"
+                            size="sm"
+                            className="text-red-600 border-red-600 hover:bg-red-50"
+                          >
+                            <Trash className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {messages.length === 0 && (
+                    <div className="text-center py-8 text-gray-500">
+                      No messages received yet.
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -675,67 +756,45 @@ const Admin = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="messages" className="space-y-6">
+          <TabsContent value="settings" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Contact Messages</CardTitle>
+                <CardTitle>Site Settings</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {messages.map((message) => (
-                    <div key={message.id} className={`p-4 border rounded-lg ${message.read ? 'bg-gray-50' : 'bg-white border-green-200'}`}>
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <h3 className="font-semibold">{message.name}</h3>
-                            {!message.read && (
-                              <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">New</span>
-                            )}
-                          </div>
-                          <p className="text-sm text-gray-600 mb-1">
-                            <strong>Email:</strong> {message.email}
-                          </p>
-                          {message.phone && (
-                            <p className="text-sm text-gray-600 mb-1">
-                              <strong>Phone:</strong> {message.phone}
-                            </p>
-                          )}
-                          <p className="text-sm text-gray-600 mb-2">
-                            <strong>Subject:</strong> {message.subject}
-                          </p>
-                          <p className="text-sm text-gray-700 mb-2">{message.message}</p>
-                          <p className="text-xs text-gray-500">
-                            {new Date(message.created_at).toLocaleString()}
-                          </p>
-                        </div>
-                        <div className="flex gap-2 ml-4">
-                          {!message.read && (
-                            <Button
-                              onClick={() => markMessageAsRead(message.id)}
-                              variant="outline"
-                              size="sm"
-                              className="text-green-600 border-green-600 hover:bg-green-50"
-                            >
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                          )}
-                          <Button
-                            onClick={() => deleteMessage(message.id)}
-                            variant="outline"
-                            size="sm"
-                            className="text-red-600 border-red-600 hover:bg-red-50"
-                          >
-                            <Trash className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  {messages.length === 0 && (
-                    <div className="text-center py-8 text-gray-500">
-                      No messages received yet.
-                    </div>
-                  )}
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label>Total Donations ($)</Label>
+                    <Input
+                      value={settings.total_donations || ''}
+                      onChange={(e) => updateSetting('total_donations', e.target.value)}
+                      placeholder="Enter total donations"
+                    />
+                  </div>
+                  <div>
+                    <Label>Children Reached</Label>
+                    <Input
+                      value={settings.children_reached || ''}
+                      onChange={(e) => updateSetting('children_reached', e.target.value)}
+                      placeholder="Enter children reached"
+                    />
+                  </div>
+                  <div>
+                    <Label>Programs Completed</Label>
+                    <Input
+                      value={settings.programs_completed || ''}
+                      onChange={(e) => updateSetting('programs_completed', e.target.value)}
+                      placeholder="Enter programs completed"
+                    />
+                  </div>
+                  <div>
+                    <Label>Community Partners</Label>
+                    <Input
+                      value={settings.community_partners || ''}
+                      onChange={(e) => updateSetting('community_partners', e.target.value)}
+                      placeholder="Enter community partners"
+                    />
+                  </div>
                 </div>
               </CardContent>
             </Card>
