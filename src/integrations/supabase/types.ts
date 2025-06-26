@@ -9,7 +9,137 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      admin_settings: {
+        Row: {
+          created_at: string | null
+          id: string
+          key: string
+          updated_at: string | null
+          value: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          key: string
+          updated_at?: string | null
+          value: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          key?: string
+          updated_at?: string | null
+          value?: string
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          created_at: string | null
+          date: string
+          description: string | null
+          id: string
+          image_url: string | null
+          location: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          date: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          date?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      visit_media: {
+        Row: {
+          caption: string | null
+          created_at: string | null
+          id: string
+          media_type: string | null
+          media_url: string
+          order_index: number | null
+          visit_id: string | null
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string | null
+          id?: string
+          media_type?: string | null
+          media_url: string
+          order_index?: number | null
+          visit_id?: string | null
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string | null
+          id?: string
+          media_type?: string | null
+          media_url?: string
+          order_index?: number | null
+          visit_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "visit_media_visit_id_fkey"
+            columns: ["visit_id"]
+            isOneToOne: false
+            referencedRelation: "visits"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      visits: {
+        Row: {
+          activities: string[] | null
+          created_at: string | null
+          description: string
+          id: string
+          impact_metrics: Json | null
+          location: string
+          title: string
+          updated_at: string | null
+          visit_date: string
+        }
+        Insert: {
+          activities?: string[] | null
+          created_at?: string | null
+          description: string
+          id?: string
+          impact_metrics?: Json | null
+          location: string
+          title: string
+          updated_at?: string | null
+          visit_date: string
+        }
+        Update: {
+          activities?: string[] | null
+          created_at?: string | null
+          description?: string
+          id?: string
+          impact_metrics?: Json | null
+          location?: string
+          title?: string
+          updated_at?: string | null
+          visit_date?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

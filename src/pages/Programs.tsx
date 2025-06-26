@@ -4,119 +4,71 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Target, Brain, BookOpen, Shield, Users, Heart, Calendar, Clock, MapPin } from "lucide-react";
-import { Link } from "react-router-dom";
+import { BookOpen, Brain, Heart, Users, DollarSign, Palette, MessageCircle } from "lucide-react";
 
 const Programs = () => {
   const programs = [
     {
-      title: "Financial Literacy Bootcamp",
-      description: "Comprehensive financial education covering budgeting, saving, investing, and entrepreneurship basics.",
-      icon: Target,
-      color: "green",
+      title: "Financial Literacy & Management",
+      description: "Learn essential money management skills including budgeting, saving, investing, and entrepreneurship basics.",
+      icon: DollarSign,
+      age: "16-25 years",
       duration: "8 weeks",
-      ageGroup: "12-25 years",
-      schedule: "Saturdays 10am-2pm",
-      features: [
-        "Personal budgeting and expense tracking",
-        "Introduction to saving and investment",
-        "Entrepreneurship fundamentals",
-        "Banking and credit basics",
-        "Practical money management projects"
-      ]
+      features: ["Budgeting basics", "Saving strategies", "Investment fundamentals", "Business planning"],
+      color: "green"
     },
     {
-      title: "AI & Technology Workshop",
-      description: "Introduction to artificial intelligence, coding basics, and digital literacy for the modern world.",
+      title: "AI & Technology Skills",
+      description: "Discover the world of artificial intelligence, coding basics, and digital literacy for the modern world.",
       icon: Brain,
-      color: "blue",
-      duration: "10 weeks",
-      ageGroup: "8-25 years",
-      schedule: "Weekdays 4pm-6pm",
-      features: [
-        "AI fundamentals and applications",
-        "Basic programming concepts",
-        "Digital tools and productivity apps",
-        "Online safety and digital citizenship",
-        "Tech career exploration"
-      ]
-    },
-    {
-      title: "Creative Skills Development",
-      description: "Fostering creativity through arts, writing, design thinking, and innovative problem-solving.",
-      icon: BookOpen,
-      color: "purple",
-      duration: "6 weeks",
-      ageGroup: "5-25 years",
-      schedule: "Flexible timing",
-      features: [
-        "Art and craft workshops",
-        "Creative writing sessions",
-        "Design thinking methodology",
-        "Public speaking and presentation",
-        "Creative project showcases"
-      ]
-    },
-    {
-      title: "Mental Health & Counseling",
-      description: "Professional mental health support, stress management, and emotional intelligence development.",
-      icon: Shield,
-      color: "pink",
-      duration: "Ongoing",
-      ageGroup: "All ages",
-      schedule: "By appointment",
-      features: [
-        "Individual counseling sessions",
-        "Group therapy workshops",
-        "Stress management techniques",
-        "Emotional intelligence training",
-        "Crisis intervention support"
-      ]
-    },
-    {
-      title: "Healthy Lifestyle Coaching",
-      description: "Nutrition education, physical wellness, and building sustainable healthy habits.",
-      icon: Users,
-      color: "orange",
+      age: "14-25 years", 
       duration: "12 weeks",
-      ageGroup: "10-25 years",
-      schedule: "Tuesdays & Thursdays 5pm-7pm",
-      features: [
-        "Nutrition and meal planning",
-        "Physical fitness programs",
-        "Mental wellness practices",
-        "Sleep hygiene education",
-        "Habit formation strategies"
-      ]
+      features: ["AI fundamentals", "Basic programming", "Digital tools", "Tech career guidance"],
+      color: "blue"
     },
     {
-      title: "Disease Awareness Program",
-      description: "Health education focusing on disease prevention, health literacy, and making informed health decisions.",
+      title: "Creative Arts & Innovation",
+      description: "Express yourself through various art forms while developing creative problem-solving skills.",
+      icon: Palette,
+      age: "10-25 years",
+      duration: "10 weeks", 
+      features: ["Visual arts", "Music & performance", "Creative writing", "Innovation workshops"],
+      color: "purple"
+    },
+    {
+      title: "Mental Health & Wellbeing",
+      description: "Build emotional resilience, learn coping strategies, and maintain mental wellness in daily life.",
       icon: Heart,
-      color: "red",
-      duration: "4 weeks",
-      ageGroup: "13-25 years",
-      schedule: "Monthly workshops",
-      features: [
-        "Disease prevention education",
-        "Health screening awareness",
-        "First aid and emergency response",
-        "Sexual health education",
-        "Community health advocacy"
-      ]
+      age: "12-25 years",
+      duration: "6 weeks",
+      features: ["Stress management", "Emotional intelligence", "Mindfulness", "Peer support groups"],
+      color: "red"
+    },
+    {
+      title: "Life Skills & Personal Development", 
+      description: "Develop essential life skills including communication, leadership, and personal goal setting.",
+      icon: Users,
+      age: "15-25 years",
+      duration: "8 weeks",
+      features: ["Communication skills", "Leadership development", "Goal setting", "Time management"],
+      color: "orange"
+    },
+    {
+      title: "Health & Lifestyle Coaching",
+      description: "Learn about nutrition, exercise, healthy habits, and disease prevention for a better quality of life.",
+      icon: BookOpen,
+      age: "10-25 years", 
+      duration: "6 weeks",
+      features: ["Nutrition education", "Exercise programs", "Health screening", "Lifestyle planning"],
+      color: "teal"
     }
   ];
 
-  const getColorClasses = (color: string) => {
-    const colors = {
-      green: "bg-green-100 text-green-600",
-      blue: "bg-blue-100 text-blue-600",
-      purple: "bg-purple-100 text-purple-600",
-      pink: "bg-pink-100 text-pink-600",
-      orange: "bg-orange-100 text-orange-600",
-      red: "bg-red-100 text-red-600"
-    };
-    return colors[color as keyof typeof colors] || colors.green;
+  const handleEnrollment = (programTitle: string) => {
+    const message = `Hi! I'm interested in enrolling for the "${programTitle}" program at Santa's Heart. Could you please provide me with more information about registration and the next available sessions?`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/254700861129?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
@@ -124,11 +76,11 @@ const Programs = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-red-50 to-orange-50">
+      <section className="py-20 bg-gradient-to-r from-green-50 to-red-50">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold text-gray-800 mb-6 animate-fade-in">Our Programs</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in">
-            Comprehensive educational and wellness programs designed to empower young minds and build life skills
+            Empowering young minds through comprehensive education and life skills training designed for the 21st century
           </p>
         </div>
       </section>
@@ -136,57 +88,56 @@ const Programs = () => {
       {/* Programs Grid */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {programs.map((program, index) => {
               const IconComponent = program.icon;
+              const colorClasses = {
+                green: "bg-green-100 text-green-600 border-green-200",
+                blue: "bg-blue-100 text-blue-600 border-blue-200", 
+                purple: "bg-purple-100 text-purple-600 border-purple-200",
+                red: "bg-red-100 text-red-600 border-red-200",
+                orange: "bg-orange-100 text-orange-600 border-orange-200",
+                teal: "bg-teal-100 text-teal-600 border-teal-200"
+              };
+
               return (
-                <Card key={index} className="hover:shadow-lg transition-shadow hover-scale">
+                <Card key={index} className="hover:shadow-lg transition-shadow hover-scale h-full">
                   <CardHeader>
-                    <div className="flex items-start justify-between mb-4">
-                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${getColorClasses(program.color)}`}>
-                        <IconComponent className="h-6 w-6" />
-                      </div>
-                      <Badge variant="secondary" className="text-xs">
-                        {program.ageGroup}
+                    <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${colorClasses[program.color as keyof typeof colorClasses]}`}>
+                      <IconComponent className="h-8 w-8" />
+                    </div>
+                    <CardTitle className="text-xl text-gray-800 mb-2">{program.title}</CardTitle>
+                    <div className="flex gap-2 mb-4">
+                      <Badge variant="secondary" className="bg-green-50 text-green-700 border-green-200">
+                        {program.age}
+                      </Badge>
+                      <Badge variant="secondary" className="bg-red-50 text-red-700 border-red-200">
+                        {program.duration}
                       </Badge>
                     </div>
-                    <CardTitle className="text-2xl text-gray-800 mb-2">{program.title}</CardTitle>
-                    <p className="text-gray-600 mb-4">{program.description}</p>
-                    
-                    {/* Program Details */}
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
-                      <div className="flex items-center gap-1">
-                        <Clock className="h-4 w-4" />
-                        {program.duration}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Calendar className="h-4 w-4" />
-                        {program.schedule}
-                      </div>
-                    </div>
                   </CardHeader>
-                  
-                  <CardContent>
-                    <h4 className="font-semibold text-gray-800 mb-3">What You'll Learn:</h4>
-                    <ul className="space-y-2 mb-6">
-                      {program.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-start gap-2 text-sm text-gray-600">
-                          <div className="w-1.5 h-1.5 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+                  <CardContent className="flex-1 flex flex-col">
+                    <p className="text-gray-600 mb-6 flex-1">{program.description}</p>
                     
-                    <div className="flex gap-3">
-                      <Link to="/contact" className="flex-1">
-                        <Button className="w-full bg-red-600 hover:bg-red-700">
-                          Enroll Now
-                        </Button>
-                      </Link>
-                      <Button variant="outline" className="flex-1">
-                        Learn More
-                      </Button>
+                    <div className="mb-6">
+                      <h4 className="font-semibold text-gray-800 mb-3">What you'll learn:</h4>
+                      <ul className="space-y-2">
+                        {program.features.map((feature, featureIndex) => (
+                          <li key={featureIndex} className="flex items-center text-sm text-gray-600">
+                            <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
+
+                    <Button 
+                      onClick={() => handleEnrollment(program.title)}
+                      className="w-full bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      <MessageCircle className="h-4 w-4 mr-2" />
+                      Enroll Now via WhatsApp
+                    </Button>
                   </CardContent>
                 </Card>
               );
@@ -201,62 +152,66 @@ const Programs = () => {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">Why Choose Our Programs?</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're committed to providing the highest quality education and support for young people
+              Our comprehensive approach ensures holistic development and real-world application
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Expert Mentors</h3>
+              <p className="text-gray-600">Learn from experienced professionals and dedicated volunteers</p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <BookOpen className="h-8 w-8 text-red-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Practical Learning</h3>
+              <p className="text-gray-600">Hands-on experience with real-world applications and projects</p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="h-8 w-8 text-green-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">100% Free</h3>
-              <p className="text-gray-600">
-                All our programs are completely free, ensuring access regardless of financial circumstances.
-              </p>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Supportive Community</h3>
+              <p className="text-gray-600">Join a network of peers and mentors who care about your success</p>
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-blue-600" />
+              <div className="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Brain className="h-8 w-8 text-red-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Expert Instructors</h3>
-              <p className="text-gray-600">
-                Learn from qualified professionals and industry experts who are passionate about youth development.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Target className="h-8 w-8 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Practical Skills</h3>
-              <p className="text-gray-600">
-                Focus on real-world applications and skills that can be immediately implemented in daily life.
-              </p>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Future-Ready Skills</h3>
+              <p className="text-gray-600">Develop skills that are essential for success in the modern world</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-red-600 to-red-700 text-white">
+      <section className="py-16 bg-gradient-to-r from-green-600 to-red-600 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-red-100">
-            Join thousands of young people who have transformed their lives through our programs.
+          <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Future?</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-green-100">
+            Join thousands of young people who have already started their journey with Santa's Heart
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact">
-              <Button size="lg" className="bg-white text-red-600 hover:bg-red-50 px-8 py-4 text-lg">
-                Apply Now
+            <Button 
+              onClick={() => handleEnrollment("General Information")}
+              className="bg-white text-green-600 hover:bg-green-50 px-8 py-4 text-lg font-semibold"
+            >
+              <MessageCircle className="h-5 w-5 mr-2" />
+              Get Started Today
+            </Button>
+            <a href="/contact">
+              <Button className="border-2 border-white text-white hover:bg-white hover:text-green-600 px-8 py-4 text-lg font-semibold">
+                Learn More
               </Button>
-            </Link>
-            <Link to="/about">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-red-600 px-8 py-4 text-lg">
-                Learn About Us
-              </Button>
-            </Link>
+            </a>
           </div>
         </div>
       </section>
