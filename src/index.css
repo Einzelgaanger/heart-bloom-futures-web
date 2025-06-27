@@ -1,88 +1,63 @@
 
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Inter", sans-serif;
+}
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-
+    --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-
+    --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-
+    --popover-foreground: 0 0% 3.9%;
     --primary: 0 84% 60%;
     --primary-foreground: 0 0% 98%;
-
-    --secondary: 0 0% 96%;
+    --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
-
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-
-    --accent: 0 84% 60%;
-    --accent-foreground: 0 0% 98%;
-
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 91%;
-    --input: 0 0% 91%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
     --ring: 0 84% 60%;
-
     --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 26%;
-    --sidebar-primary: 0 0% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 0 0% 96%;
-    --sidebar-accent-foreground: 0 0% 10%;
-    --sidebar-border: 0 0% 91%;
-    --sidebar-ring: 0 84% 60%;
   }
 
   .dark {
-    --background: 0 0% 4%;
+    --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
-
-    --card: 0 0% 4%;
+    --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
-
-    --popover: 0 0% 4%;
+    --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-
-    --primary: 0 84% 60%;
-    --primary-foreground: 0 0% 11%;
-
-    --secondary: 0 0% 18%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
-
-    --muted: 0 0% 18%;
-    --muted-foreground: 0 0% 65%;
-
-    --accent: 0 84% 60%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62% 31%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 0 84% 60%;
-    --sidebar-background: 0 0% 10%;
-    --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 0 84% 60%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 16%;
-    --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 0 0% 16%;
-    --sidebar-ring: 0 84% 60%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
   }
 }
 
@@ -90,81 +65,106 @@
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
   }
 }
 
-@layer components {
-  .hover-scale {
-    @apply transition-transform duration-200 hover:scale-105;
-  }
+.animate-fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
 
-  .carousel-container {
-    @apply relative w-full h-64 overflow-hidden rounded-lg;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  .carousel-image {
-    @apply absolute inset-0 w-full h-full object-cover transition-opacity duration-500;
-  }
+.animate-scale-in {
+  animation: scaleIn 0.8s ease-out;
+}
 
-  .carousel-image.active {
-    @apply opacity-100;
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
   }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
-  .carousel-image.inactive {
-    @apply opacity-0;
-  }
+.animate-slide-in {
+  animation: slideIn 1s ease-out;
+}
 
-  /* Remove all gradients and update theme colors to black, white, red */
-  .bg-gradient-to-r,
-  .bg-gradient-to-br,
-  .bg-gradient-to-l {
-    @apply bg-black !important;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
   }
-  
-  .from-red-50,
-  .to-orange-50,
-  .from-green-50,
-  .to-red-50 {
-    @apply bg-white !important;
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
+}
 
-  /* Override any green colors to red */
-  .text-green-600 {
-    @apply text-red-600 !important;
+/* Remove all gradients and update color scheme */
+.bg-gradient-to-r {
+  @apply bg-red-600;
+}
+
+.bg-gradient-to-br {
+  @apply bg-black;
+}
+
+.from-red-600 {
+  @apply bg-red-600;
+}
+
+.to-red-800 {
+  @apply bg-red-600;
+}
+
+.from-black {
+  @apply bg-black;
+}
+
+.to-gray-900 {
+  @apply bg-black;
+}
+
+/* Override hero sections to be smaller */
+.hero-section {
+  @apply py-12;
+}
+
+@media (min-width: 768px) {
+  .hero-section {
+    @apply py-16;
   }
-  
-  .bg-green-600 {
-    @apply bg-red-600 !important;
-  }
-  
-  .hover\:bg-green-700:hover {
-    @apply hover:bg-red-700 !important;
-  }
-  
-  .border-green-200 {
-    @apply border-gray-200 !important;
-  }
-  
-  .border-green-600 {
-    @apply border-red-600 !important;
-  }
-  
-  .hover\:bg-green-50:hover {
-    @apply hover:bg-red-50 !important;
-  }
-  
-  .bg-green-100 {
-    @apply bg-red-100 !important;
-  }
-  
-  .bg-green-50 {
-    @apply bg-red-50 !important;
-  }
-  
-  .focus\:border-green-500:focus {
-    @apply focus:border-red-500 !important;
-  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dc2626;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b91c1c;
 }

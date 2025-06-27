@@ -9,6 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Settings, Calendar, MapPin, TrendingUp, LogOut, Plus, Edit, Trash, Mail, Eye } from "lucide-react";
+import FileUpload from '@/components/FileUpload';
+import MultiFileUpload from '@/components/MultiFileUpload';
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -24,7 +26,7 @@ const Admin = () => {
     description: '',
     date: '',
     location: '',
-    image_url: ''
+    image_file: null as File | null
   });
 
   const [newVisit, setNewVisit] = useState({
@@ -33,7 +35,8 @@ const Admin = () => {
     location: '',
     visit_date: '',
     activities: '',
-    impact_metrics: ''
+    impact_metrics: '',
+    media_files: [] as File[]
   });
 
   const [editingEvent, setEditingEvent] = useState<any>(null);
@@ -117,6 +120,26 @@ const Admin = () => {
     }
   };
 
+  const uploadFile = async (file: File): Promise<string> => {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Math.random()}.${fileExt}`;
+    const filePath = `${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('media')
+      .upload(filePath, file);
+
+    if (uploadError) {
+      throw uploadError;
+    }
+
+    const { data } = supabase.storage
+      .from('media')
+      .getPublicUrl(filePath);
+
+    return data.publicUrl;
+  };
+
   const addEvent = async () => {
     if (!newEvent.title || !newEvent.date) {
       toast({
@@ -128,13 +151,24 @@ const Admin = () => {
     }
 
     try {
+      let imageUrl = '';
+      if (newEvent.image_file) {
+        imageUrl = await uploadFile(newEvent.image_file);
+      }
+
       const { error } = await supabase
         .from('events')
-        .insert([newEvent]);
+        .insert([{
+          title: newEvent.title,
+          description: newEvent.description,
+          date: newEvent.date,
+          location: newEvent.location,
+          image_url: imageUrl
+        }]);
 
       if (error) throw error;
 
-      setNewEvent({ title: '', description: '', date: '', location: '', image_url: '' });
+      setNewEvent({ title: '', description: '', date: '', location: '', image_file: null });
       fetchData();
       toast({
         title: "Success",
@@ -161,6 +195,11 @@ const Admin = () => {
     }
 
     try {
+      let imageUrl = editingEvent.image_url;
+      if (editingEvent.image_file) {
+        imageUrl = await uploadFile(editingEvent.image_file);
+      }
+
       const { error } = await supabase
         .from('events')
         .update({
@@ -168,7 +207,7 @@ const Admin = () => {
           description: editingEvent.description,
           date: editingEvent.date,
           location: editingEvent.location,
-          image_url: editingEvent.image_url
+          image_url: imageUrl
         })
         .eq('id', editingEvent.id);
 
@@ -227,13 +266,21 @@ const Admin = () => {
     }
 
     try {
+      const mediaUrls = [];
+      for (const file of newVisit.media_files) {
+        const url = await uploadFile(file);
+        const type = file.type.startsWith('image/') ? 'image' : 'video';
+        mediaUrls.push({ url, type });
+      }
+
       const visitData = {
         title: newVisit.title,
         description: newVisit.description,
         location: newVisit.location,
         visit_date: newVisit.visit_date,
         activities: newVisit.activities ? newVisit.activities.split(',').map(s => s.trim()) : [],
-        impact_metrics: newVisit.impact_metrics ? JSON.parse(newVisit.impact_metrics) : {}
+        impact_metrics: newVisit.impact_metrics ? JSON.parse(newVisit.impact_metrics) : {},
+        media: mediaUrls
       };
 
       const { error } = await supabase
@@ -242,7 +289,7 @@ const Admin = () => {
 
       if (error) throw error;
 
-      setNewVisit({ title: '', description: '', location: '', visit_date: '', activities: '', impact_metrics: '' });
+      setNewVisit({ title: '', description: '', location: '', visit_date: '', activities: '', impact_metrics: '', media_files: [] });
       fetchData();
       toast({
         title: "Success",
@@ -535,17 +582,6 @@ const Admin = () => {
                       placeholder="Enter location"
                     />
                   </div>
-                  <div>
-                    <Label>Image URL</Label>
-                    <Input
-                      value={editingEvent ? editingEvent.image_url : newEvent.image_url}
-                      onChange={(e) => editingEvent
-                        ? setEditingEvent({ ...editingEvent, image_url: e.target.value })
-                        : setNewEvent({ ...newEvent, image_url: e.target.value })
-                      }
-                      placeholder="Enter image URL"
-                    />
-                  </div>
                   <div className="md:col-span-2">
                     <Label>Description</Label>
                     <Textarea
@@ -557,11 +593,22 @@ const Admin = () => {
                       placeholder="Enter event description"
                     />
                   </div>
+                  <div className="md:col-span-2">
+                    <FileUpload
+                      onFileSelect={(file) => editingEvent
+                        ? setEditingEvent({ ...editingEvent, image_file: file })
+                        : setNewEvent({ ...newEvent, image_file: file })
+                      }
+                      accept="image/*"
+                      label="Event Image"
+                      currentFile={editingEvent?.image_url}
+                    />
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <Button 
                     onClick={editingEvent ? updateEvent : addEvent} 
-                    className="bg-green-600 hover:bg-green-700"
+                    className="bg-red-600 hover:bg-red-700"
                   >
                     {editingEvent ? 'Update Event' : 'Add Event'}
                   </Button>
@@ -698,11 +745,21 @@ const Admin = () => {
                       placeholder='{"children_reached": 100, "workshops_conducted": 5}'
                     />
                   </div>
+                  <div className="md:col-span-2">
+                    <MultiFileUpload
+                      onFilesChange={(files) => editingVisit
+                        ? setEditingVisit({ ...editingVisit, media_files: files })
+                        : setNewVisit({ ...newVisit, media_files: files })
+                      }
+                      label="Visit Images & Videos"
+                      accept="image/*,video/*"
+                    />
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <Button 
                     onClick={editingVisit ? updateVisit : addVisit} 
-                    className="bg-green-600 hover:bg-green-700"
+                    className="bg-red-600 hover:bg-red-700"
                   >
                     {editingVisit ? 'Update Visit' : 'Add Visit'}
                   </Button>
