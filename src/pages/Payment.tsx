@@ -63,15 +63,23 @@ const Payment = () => {
     });
   };
 
+  const isFormValid = () => {
+    return donorInfo.name.trim() !== "" && 
+           donorInfo.email.trim() !== "" && 
+           donorInfo.phone.trim() !== "" &&
+           getFinalAmount() && 
+           parseFloat(getFinalAmount()) > 0;
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section - Smaller */}
+      {/* Hero Section */}
       <section className="hero-section bg-black">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Make a Difference Today</h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <h1 className="text-2xl md:text-3xl font-bold text-white mb-3">Make a Difference Today</h1>
+          <p className="text-base text-gray-300 max-w-2xl mx-auto">
             Your donation helps us provide free education and support to children who need it most
           </p>
         </div>
@@ -146,7 +154,7 @@ const Payment = () => {
                           </div>
                           <div>
                             <div className="font-medium">PayPal</div>
-                            <div className="text-sm text-gray-500">Pay with your PayPal account</div>
+                            <div className="text-sm text-gray-500">Pay with your PayPal account or card</div>
                           </div>
                         </Label>
                         <Badge variant="secondary">Available</Badge>
@@ -192,6 +200,7 @@ const Payment = () => {
                           onChange={(e) => setDonorInfo({...donorInfo, name: e.target.value})}
                           placeholder="Enter your full name"
                           className="mt-1"
+                          required
                         />
                       </div>
                       <div>
@@ -203,11 +212,12 @@ const Payment = () => {
                           onChange={(e) => setDonorInfo({...donorInfo, email: e.target.value})}
                           placeholder="Enter your email"
                           className="mt-1"
+                          required
                         />
                       </div>
                     </div>
                     <div className="mt-3">
-                      <Label htmlFor="donor-phone">Phone Number (Optional)</Label>
+                      <Label htmlFor="donor-phone">Phone Number *</Label>
                       <Input
                         id="donor-phone"
                         type="tel"
@@ -215,12 +225,13 @@ const Payment = () => {
                         onChange={(e) => setDonorInfo({...donorInfo, phone: e.target.value})}
                         placeholder="Enter your phone number"
                         className="mt-1"
+                        required
                       />
                     </div>
                   </div>
 
                   {/* Payment Button */}
-                  {paymentMethod === "paypal" && getFinalAmount() && parseFloat(getFinalAmount()) > 0 && donorInfo.name && donorInfo.email ? (
+                  {paymentMethod === "paypal" && isFormValid() ? (
                     <PayPalButton
                       amount={getFinalAmount()}
                       donorInfo={donorInfo}
@@ -238,7 +249,7 @@ const Payment = () => {
                     </Button>
                   ) : (
                     <div className="text-center text-sm text-gray-500 p-4 border rounded-lg">
-                      Please fill in all required fields and select an amount to proceed with PayPal payment
+                      Please fill in all required fields (including phone number) and select an amount to proceed with PayPal payment
                     </div>
                   )}
 
