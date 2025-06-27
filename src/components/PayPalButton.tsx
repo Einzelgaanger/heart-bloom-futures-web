@@ -15,7 +15,7 @@ interface PayPalButtonProps {
 
 declare global {
   interface Window {
-    paypal: any;
+    paypal?: any;
   }
 }
 
@@ -24,105 +24,92 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [scriptLoaded, setScriptLoaded] = useState(false);
 
   useEffect(() => {
-    const loadPayPalScript = () => {
-      return new Promise((resolve, reject) => {
-        // Check if PayPal is already loaded and ready
-        if (window.paypal && window.paypal.Buttons && typeof window.paypal.Buttons === 'function') {
-          console.log('PayPal SDK already loaded and ready');
-          resolve(window.paypal);
-          return;
-        }
-
-        // Remove existing PayPal script if any
-        const existingScript = document.querySelector('script[src*="paypal.com/sdk/js"]');
-        if (existingScript) {
-          console.log('Removing existing PayPal script');
-          existingScript.remove();
-        }
-
-        // Create new script element
-        const script = document.createElement('script');
-        script.src = `https://www.paypal.com/sdk/js?client-id=AQLhXL5Mw1Rs5Mk6vlRmUFMqRM1tHyyVKtg7rY7VQYD7ZVSgXrTTz28gAs2dTQcDqus4MQdx778lsafx&currency=USD&intent=capture&enable-funding=venmo,paylater&components=buttons`;
-        script.async = true;
-        script.defer = true;
-        
-        script.onload = () => {
-          console.log('PayPal SDK script loaded successfully');
-          
-          // Check if PayPal object is available with a retry mechanism
-          const checkPayPalReady = (retries = 0) => {
-            if (window.paypal && window.paypal.Buttons && typeof window.paypal.Buttons === 'function') {
-              console.log('PayPal SDK is ready');
-              resolve(window.paypal);
-            } else if (retries < 10) {
-              console.log(`PayPal not ready yet, retrying... (${retries + 1}/10)`);
-              setTimeout(() => checkPayPalReady(retries + 1), 200);
-            } else {
-              console.error('PayPal SDK failed to initialize after multiple attempts');
-              reject(new Error('PayPal SDK failed to initialize'));
-            }
-          };
-          
-          checkPayPalReady();
-        };
-        
-        script.onerror = (error) => {
-          console.error('Failed to load PayPal SDK script:', error);
-          reject(new Error('Failed to load PayPal SDK script'));
-        };
-        
-        // Add script to head
-        document.head.appendChild(script);
-        console.log('PayPal SDK script added to page');
-      });
-    };
-
-    const initializePayPal = async () => {
+    const loadPayPalSDK = async () => {
       try {
         setIsLoading(true);
         setError(null);
-        console.log('Initializing PayPal SDK...');
         
-        await loadPayPalScript();
-        console.log('PayPal SDK initialization complete');
+        // Clean up any existing PayPal scripts
+        const existingScripts = document.querySelectorAll('script[src*="paypal.com/sdk/js"]');
+        existingScripts.forEach(script => script.remove());
         
-        // Double-check PayPal is ready before rendering
-        if (!window.paypal || !window.paypal.Buttons || typeof window.paypal.Buttons !== 'function') {
-          throw new Error('PayPal SDK not properly initialized');
+        // Clear any existing PayPal object
+        if (window.paypal) {
+          delete window.paypal;
         }
         
-        renderPayPalButton();
+        console.log('Loading PayPal SDK...');
+        
+        const script = document.createElement('script');
+        script.src = `https://www.paypal.com/sdk/js?client-id=AQLhXL5Mw1Rs5Mk6vlRmUFMqRM1tHyyVKtg7rY7VQYD7ZVSgXrTTz28gAs2dTQcDqus4MQdx778lsafx&currency=USD&intent=capture&components=buttons`;
+        script.async = true;
+        script.defer = true;
+        
+        const loadPromise = new Promise((resolve, reject) => {
+          script.onload = () => {
+            console.log('PayPal script loaded successfully');
+            
+            // Wait for PayPal to be fully initialized
+            const checkPayPal = (attempts = 0) => {
+              if (attempts > 20) {
+                reject(new Error('PayPal SDK timeout'));
+                return;
+              }
+              
+              if (window.paypal && window.paypal.Buttons) {
+                console.log('PayPal SDK ready');
+                resolve(window.paypal);
+              } else {
+                console.log(`Waiting for PayPal SDK... (${attempts + 1}/20)`);
+                setTimeout(() => checkPayPal(attempts + 1), 100);
+              }
+            };
+            
+            checkPayPal();
+          };
+          
+          script.onerror = () => {
+            console.error('Failed to load PayPal SDK');
+            reject(new Error('Failed to load PayPal SDK'));
+          };
+        });
+        
+        // Add script to head
+        document.head.appendChild(script);
+        
+        // Wait for PayPal to load
+        await loadPromise;
+        
+        setScriptLoaded(true);
         setIsLoading(false);
         
+        // Render the button
+        renderPayPalButton();
+        
       } catch (err) {
-        console.error('PayPal initialization failed:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load PayPal');
+        console.error('PayPal SDK loading error:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load PayPal SDK');
         setIsLoading(false);
       }
     };
 
-    initializePayPal();
+    loadPayPalSDK();
   }, [amount]);
 
   const renderPayPalButton = () => {
-    if (!paypalRef.current) {
-      console.error('PayPal container ref not available');
+    if (!paypalRef.current || !window.paypal || !window.paypal.Buttons) {
+      console.error('PayPal not ready for rendering');
       return;
     }
 
-    if (!window.paypal || !window.paypal.Buttons || typeof window.paypal.Buttons !== 'function') {
-      console.error('PayPal SDK not ready for rendering');
-      setError('PayPal SDK not ready');
-      return;
-    }
-
-    // Clear existing button content
+    // Clear existing content
     paypalRef.current.innerHTML = '';
 
     try {
-      console.log('Creating PayPal button for amount:', amount, 'USD');
+      console.log('Rendering PayPal button for amount:', amount);
       
       window.paypal.Buttons({
         createOrder: (data: any, actions: any) => {
@@ -134,24 +121,20 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
                 currency_code: 'USD'
               },
               description: `Donation to Santa's Heart - $${amount}`,
-              custom_id: `donation_${Date.now()}`,
-              soft_descriptor: "SANTA'S HEART"
+              custom_id: `donation_${Date.now()}`
             }],
             payer: {
               name: {
                 given_name: donorInfo.name.split(' ')[0] || donorInfo.name,
                 surname: donorInfo.name.split(' ').slice(1).join(' ') || ''
               },
-              email_address: donorInfo.email,
-              phone: donorInfo.phone ? {
-                phone_number: {
-                  national_number: donorInfo.phone
-                }
-              } : undefined
+              email_address: donorInfo.email
             },
             application_context: {
               brand_name: "Santa's Heart",
-              user_action: 'PAY_NOW'
+              user_action: 'PAY_NOW',
+              return_url: window.location.origin + '/payment-success',
+              cancel_url: window.location.origin + '/payment-cancelled'
             }
           });
         },
@@ -160,11 +143,11 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
           try {
             console.log('Payment approved, capturing order:', data.orderID);
             const details = await actions.order.capture();
-            console.log('Payment capture successful:', details);
+            console.log('Payment captured successfully:', details);
             
             toast({
               title: "Payment Successful!",
-              description: `Thank you for your donation of $${amount}. Your transaction ID is: ${details.id}`,
+              description: `Thank you for your donation of $${amount}. Transaction ID: ${details.id}`,
             });
             
             onSuccess();
@@ -178,7 +161,7 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
             console.error('Payment capture failed:', error);
             toast({
               title: "Payment Processing Error",
-              description: "Your payment was approved but there was an issue processing it. Please contact support.",
+              description: "There was an issue processing your payment. Please contact support.",
               variant: "destructive",
             });
             onError();
@@ -189,20 +172,19 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
           console.error('PayPal button error:', err);
           toast({
             title: "Payment Error",
-            description: "There was an issue with the payment system. Please try again or contact support.",
+            description: "There was an issue with the payment system. Please try again.",
             variant: "destructive",
           });
           onError();
         },
         
         onCancel: (data: any) => {
-          console.log('Payment cancelled by user:', data);
+          console.log('Payment cancelled:', data);
           toast({
             title: "Payment Cancelled",
             description: "Your payment was cancelled. No charges were made.",
           });
           
-          // Redirect to cancelled page
           setTimeout(() => {
             window.location.href = '/payment-cancelled';
           }, 1500);
@@ -212,9 +194,8 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
           color: 'gold',
           shape: 'rect',
           label: 'paypal',
-          height: 50,
-          tagline: false,
-          layout: 'vertical'
+          height: 45,
+          tagline: false
         }
       }).render(paypalRef.current);
       
@@ -222,7 +203,7 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
       
     } catch (err) {
       console.error('Error rendering PayPal button:', err);
-      setError('Failed to render PayPal button. Please refresh the page.');
+      setError('Failed to render payment button');
     }
   };
 
@@ -256,7 +237,7 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
 
   return (
     <div className="space-y-2">
-      <div ref={paypalRef} className="min-h-[60px]"></div>
+      <div ref={paypalRef} className="min-h-[50px]"></div>
       <div className="text-xs text-gray-500 text-center">
         🔒 Secure payment powered by PayPal
       </div>
