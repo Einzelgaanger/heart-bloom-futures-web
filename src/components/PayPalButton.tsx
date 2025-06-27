@@ -28,22 +28,40 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
   useEffect(() => {
     const loadPayPalScript = () => {
       return new Promise((resolve, reject) => {
-        if (window.paypal) {
+        // Check if PayPal is already loaded
+        if (window.paypal && window.paypal.Buttons) {
+          console.log('PayPal SDK already loaded');
           resolve(window.paypal);
           return;
         }
 
+        // Remove existing script if any
+        const existingScript = document.querySelector('script[src*="paypal.com/sdk"]');
+        if (existingScript) {
+          existingScript.remove();
+        }
+
         const script = document.createElement('script');
-        script.src = 'https://www.paypal.com/sdk/js?client-id=AQLhXL5Mw1Rs5Mk6vlRmUFMqRM1tHyyVKtg7rY7VQYD7ZVSgXrTTz28gAs2dTQcDqus4MQdx778lsafx&currency=USD&intent=capture';
+        script.src = `https://www.paypal.com/sdk/js?client-id=AQLhXL5Mw1Rs5Mk6vlRmUFMqRM1tHyyVKtg7rY7VQYD7ZVSgXrTTz28gAs2dTQcDqus4MQdx778lsafx&currency=USD&intent=capture&enable-funding=venmo,paylater`;
         script.async = true;
+        script.defer = true;
         
         script.onload = () => {
-          console.log('PayPal SDK loaded successfully');
-          resolve(window.paypal);
+          console.log('PayPal SDK script loaded');
+          // Wait a bit for PayPal to initialize
+          setTimeout(() => {
+            if (window.paypal && window.paypal.Buttons) {
+              console.log('PayPal SDK fully initialized');
+              resolve(window.paypal);
+            } else {
+              console.error('PayPal SDK loaded but Buttons not available');
+              reject(new Error('PayPal SDK not properly initialized'));
+            }
+          }, 100);
         };
         
-        script.onerror = () => {
-          console.error('Failed to load PayPal SDK');
+        script.onerror = (error) => {
+          console.error('Failed to load PayPal SDK script:', error);
           reject(new Error('Failed to load PayPal SDK'));
         };
         
@@ -55,11 +73,13 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
       try {
         setIsLoading(true);
         setError(null);
+        console.log('Starting PayPal initialization...');
         
         await loadPayPalScript();
+        console.log('PayPal SDK loaded successfully');
         
         if (!window.paypal || !window.paypal.Buttons) {
-          throw new Error('PayPal SDK not properly loaded');
+          throw new Error('PayPal SDK not properly loaded after script execution');
         }
         
         renderPayPalButton();
@@ -84,6 +104,8 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
     paypalRef.current.innerHTML = '';
 
     try {
+      console.log('Rendering PayPal button for amount:', amount);
+      
       window.paypal.Buttons({
         createOrder: (data: any, actions: any) => {
           console.log('Creating PayPal order for amount:', amount);
@@ -158,13 +180,15 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
           }, 1000);
         },
         style: {
-          color: 'red',
+          color: 'gold',
           shape: 'rect',
-          label: 'pay',
+          label: 'paypal',
           height: 50,
           tagline: false
         }
       }).render(paypalRef.current);
+      
+      console.log('PayPal button rendered successfully');
     } catch (err) {
       console.error('Error rendering PayPal button:', err);
       setError('Failed to initialize PayPal button. Please refresh and try again.');
