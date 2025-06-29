@@ -1,4 +1,3 @@
-
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -27,7 +26,7 @@ const About = () => {
             </div>
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop" 
+                src="/Impa11.jpg" 
                 alt="Children learning" 
                 className="rounded-lg shadow-lg w-full"
               />
@@ -42,7 +41,7 @@ const About = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <img 
-                src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=600&h=400&fit=crop" 
+                src="/Impa22.png" 
                 alt="Youth empowerment" 
                 className="rounded-lg shadow-lg w-full"
               />
@@ -147,11 +146,11 @@ const About = () => {
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
                 <img 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" 
+                  src="/Founder.jpg" 
                   alt="Founder" 
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
                 />
-                <CardTitle className="text-xl text-gray-800">John Doe</CardTitle>
+                <CardTitle className="text-xl text-gray-800">Alfred Mulinge</CardTitle>
                 <p className="text-red-600 font-medium">Founder & Executive Director</p>
               </CardHeader>
               <CardContent>
@@ -164,11 +163,11 @@ const About = () => {
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
                 <img 
-                  src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop&crop=face" 
+                  src="/Tee.jpg" 
                   alt="Program Director" 
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
                 />
-                <CardTitle className="text-xl text-gray-800">Jane Smith</CardTitle>
+                <CardTitle className="text-xl text-gray-800">Jotham Siror</CardTitle>
                 <p className="text-red-600 font-medium">Program Director</p>
               </CardHeader>
               <CardContent>
@@ -181,11 +180,11 @@ const About = () => {
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
                 <img 
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face" 
+                  src="/Tee.jpg" 
                   alt="Technology Director" 
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
                 />
-                <CardTitle className="text-xl text-gray-800">Mike Johnson</CardTitle>
+                <CardTitle className="text-xl text-gray-800">Ebrahim </CardTitle>
                 <p className="text-red-600 font-medium">Technology & Innovation Director</p>
               </CardHeader>
               <CardContent>

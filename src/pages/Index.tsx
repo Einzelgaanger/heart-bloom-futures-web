@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
@@ -13,17 +12,17 @@ const Index = () => {
     {
       title: "Empowering Young Minds",
       subtitle: "Teaching financial literacy, creativity, and life skills to children up to 25",
-      image: "https://images.unsplash.com/photo-1497486751825-1833d4c3d6c8?w=1200&h=600&fit=crop"
+      image: "/Image 2.jpg"
     },
     {
       title: "Building Healthy Futures",
       subtitle: "Providing mental health support and wellness coaching for young people",
-      image: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1200&h=600&fit=crop"
+      image: "/Mentalh.jpg"
     },
     {
       title: "Creating Tomorrow's Leaders",
       subtitle: "Free education and counseling to help youth reach their potential",
-      image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=600&fit=crop"
+      image: "/NGO Education.jpg"
     }
   ];
 
