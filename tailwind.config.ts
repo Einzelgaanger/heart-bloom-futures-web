@@ -62,7 +62,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Custom theme colors
+				'theme-black': '#000000',
+				'theme-green': '#22c55e',
+				'theme-red': '#dc2626',
+				'theme-gold': '#fbbf24',
+				'theme-white': '#ffffff'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
