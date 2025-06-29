@@ -1,8 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Users, BookOpen, Brain, Shield, Target } from "lucide-react";
+import { Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -114,104 +113,6 @@ const Index = () => {
               <div className="text-4xl font-bold text-red-600 mb-2">100%</div>
               <div className="text-gray-600">Free Education</div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Programs */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Programs</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive educational and wellness programs designed to empower young minds
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="hover:shadow-lg transition-shadow hover-scale">
-              <CardHeader>
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                  <Target className="h-6 w-6 text-green-600" />
-                </div>
-                <CardTitle className="text-xl text-gray-800">Financial Literacy</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Teaching young people essential money management skills, budgeting, saving, and investment basics to secure their financial future.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow hover-scale">
-              <CardHeader>
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <Brain className="h-6 w-6 text-blue-600" />
-                </div>
-                <CardTitle className="text-xl text-gray-800">AI & Technology</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Introducing children to artificial intelligence, coding, and modern technology to prepare them for the digital future.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow hover-scale">
-              <CardHeader>
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                  <BookOpen className="h-6 w-6 text-purple-600" />
-                </div>
-                <CardTitle className="text-xl text-gray-800">Creative Skills</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Fostering creativity through arts, crafts, writing, and innovative thinking to help children express themselves and build confidence.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow hover-scale">
-              <CardHeader>
-                <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
-                  <Shield className="h-6 w-6 text-pink-600" />
-                </div>
-                <CardTitle className="text-xl text-gray-800">Mental Health Support</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Providing counseling, mental health awareness, and emotional support to help young people navigate life's challenges.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow hover-scale">
-              <CardHeader>
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
-                  <Users className="h-6 w-6 text-orange-600" />
-                </div>
-                <CardTitle className="text-xl text-gray-800">Lifestyle Coaching</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Healthy lifestyle education covering nutrition, exercise, personal development, and building positive life habits.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow hover-scale">
-              <CardHeader>
-                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-                  <Heart className="h-6 w-6 text-red-600" />
-                </div>
-                <CardTitle className="text-xl text-gray-800">Disease Awareness</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Health education and disease prevention awareness programs to help young people make informed health decisions.
-                </p>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>

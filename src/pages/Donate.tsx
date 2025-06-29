@@ -11,16 +11,6 @@ const Donate = () => {
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="hero-section bg-black">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-2xl md:text-3xl font-bold text-white mb-3">Support Our Mission</h1>
-          <p className="text-base text-gray-300 max-w-2xl mx-auto">
-            Every donation helps us provide free education and support to children who need it most
-          </p>
-        </div>
-      </section>
-
       {/* Donation Impact */}
       <section className="py-12">
         <div className="container mx-auto px-4">
