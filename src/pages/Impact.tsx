@@ -64,16 +64,6 @@ const Impact = () => {
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="py-16 bg-black">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Our Impact</h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            See the real difference we're making in communities through our programs and visits
-          </p>
-        </div>
-      </section>
-
       {/* Impact Statistics */}
       <section className="py-12">
         <div className="container mx-auto px-4">

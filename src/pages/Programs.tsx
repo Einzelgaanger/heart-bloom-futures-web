@@ -75,16 +75,6 @@ const Programs = () => {
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-green-50 to-red-50">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold text-gray-800 mb-6 animate-fade-in">Our Programs</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in">
-            Empowering young minds through comprehensive education and life skills training designed for the 21st century
-          </p>
-        </div>
-      </section>
-
       {/* Programs Grid */}
       <section className="py-16">
         <div className="container mx-auto px-4">
@@ -188,30 +178,6 @@ const Programs = () => {
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Future-Ready Skills</h3>
               <p className="text-gray-600">Develop skills that are essential for success in the modern world</p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-green-600 to-red-600 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Future?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-green-100">
-            Join thousands of young people who have already started their journey with Santa's Heart
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              onClick={() => handleEnrollment("General Information")}
-              className="bg-white text-green-600 hover:bg-green-50 px-8 py-4 text-lg font-semibold"
-            >
-              <MessageCircle className="h-5 w-5 mr-2" />
-              Get Started Today
-            </Button>
-            <a href="/contact">
-              <Button className="border-2 border-white text-white hover:bg-white hover:text-green-600 px-8 py-4 text-lg font-semibold">
-                Learn More
-              </Button>
-            </a>
           </div>
         </div>
       </section>

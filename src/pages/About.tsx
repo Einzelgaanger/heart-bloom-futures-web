@@ -9,16 +9,6 @@ const About = () => {
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-red-50 to-orange-50">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold text-gray-800 mb-6 animate-fade-in">About Santa's Heart</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in">
-            Dedicated to empowering young minds through comprehensive education, life skills training, and mental health support.
-          </p>
-        </div>
-      </section>
-
       {/* Mission & Vision */}
       <section className="py-16">
         <div className="container mx-auto px-4">

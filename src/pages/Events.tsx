@@ -60,16 +60,6 @@ const Events = () => {
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="py-20 bg-green-600">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold text-white mb-6">Upcoming Events</h1>
-          <p className="text-xl text-green-50 max-w-3xl mx-auto">
-            Join us for educational workshops, community outreach programs, and life-changing experiences
-          </p>
-        </div>
-      </section>
-
       {/* Events Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">

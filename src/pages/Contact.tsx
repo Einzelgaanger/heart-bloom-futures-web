@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import { Mail, Phone, Clock, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -79,16 +79,6 @@ const Contact = () => {
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="py-20 bg-black">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold text-white mb-6">Contact Us</h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Get in touch with us to learn more about our programs, volunteer opportunities, or partnership possibilities
-          </p>
-        </div>
-      </section>
-
       {/* Contact Information & Form */}
       <section className="py-16">
         <div className="container mx-auto px-4">
@@ -120,20 +110,6 @@ const Contact = () => {
                       <h3 className="font-semibold text-black">Phone Numbers</h3>
                       <p className="text-gray-600">Main: +254 700 861 129</p>
                       <p className="text-gray-600">Emergency: +1 (555) 123-4568</p>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="hover:shadow-lg transition-shadow border-gray-200">
-                  <CardContent className="flex items-center space-x-4 p-6">
-                    <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                      <MapPin className="h-6 w-6 text-red-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-black">Address</h3>
-                      <p className="text-gray-600">123 Hope Street</p>
-                      <p className="text-gray-600">Community Center, Floor 2</p>
-                      <p className="text-gray-600">City, State 12345</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -258,27 +234,6 @@ const Contact = () => {
                   </form>
                 </CardContent>
               </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Map Section (Placeholder) */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Visit Our Center</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Come visit us at our community center to learn more about our programs and meet our team
-            </p>
-          </div>
-          
-          {/* Map Placeholder */}
-          <div className="bg-gray-200 h-96 rounded-lg flex items-center justify-center">
-            <div className="text-center text-gray-500">
-              <MapPin className="h-12 w-12 mx-auto mb-4" />
-              <p className="text-lg font-medium">Interactive Map Coming Soon</p>
-              <p className="text-sm">123 Hope Street, Community Center, Floor 2</p>
             </div>
           </div>
         </div>
