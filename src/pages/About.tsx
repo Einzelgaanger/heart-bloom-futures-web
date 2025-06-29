@@ -155,7 +155,7 @@ const About = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 text-sm">
-                  15+ years experience in youth development and education. Passionate about empowering the next generation.
+                  6+ years experience in counselling and youth development. Passionate about empowering the next generation.
                 </p>
               </CardContent>
             </Card>
