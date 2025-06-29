@@ -163,7 +163,7 @@ const About = () => {
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
                 <img 
-                  src="/Tee.jpg" 
+                  src="/Jotham.jpg" 
                   alt="Program Director" 
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
                 />
@@ -184,7 +184,7 @@ const About = () => {
                   alt="Technology Director" 
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
                 />
-                <CardTitle className="text-xl text-gray-800">Ebrahim </CardTitle>
+                <CardTitle className="text-xl text-gray-800">Ebrahim Jin </CardTitle>
                 <p className="text-red-600 font-medium">Technology & Innovation Director</p>
               </CardHeader>
               <CardContent>
