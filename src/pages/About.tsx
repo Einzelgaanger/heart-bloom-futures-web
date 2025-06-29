@@ -168,11 +168,11 @@ const About = () => {
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
                 />
                 <CardTitle className="text-xl text-gray-800">Jotham Siror</CardTitle>
-                <p className="text-red-600 font-medium">Program Director</p>
+                <p className="text-red-600 font-medium"> Programs & Strategy Director</p>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 text-sm">
-                  Educational psychology expert with a focus on mental health and wellness programs for young people.
+                Young passionate environmentalist with a love for mentorship and youth engagement
                 </p>
               </CardContent>
             </Card>
