@@ -180,7 +180,7 @@ const About = () => {
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
                 <img 
-                  src="/Tee.jpg" 
+                  src="/ebrahim.jpg" 
                   alt="Technology Director" 
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
                 />
