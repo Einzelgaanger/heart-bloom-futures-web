@@ -96,7 +96,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            © 2024 Santa's Heart. All rights reserved. | Empowering children, building futures.
+            © 2025 Santa's Heart. All rights reserved. | Empowering children, building futures.
           </p>
         </div>
       </div>
