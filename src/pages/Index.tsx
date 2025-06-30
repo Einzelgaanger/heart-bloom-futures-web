@@ -1,6 +1,7 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
+import { Heart, BookOpen, Users, Brain, Target, ArrowRight, Globe, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -12,17 +13,20 @@ const Index = () => {
     {
       title: "Empowering Young Minds",
       subtitle: "Teaching financial literacy, creativity, and life skills to children up to 25",
-      image: "/Image 2.jpg"
+      color: "bg-theme-green",
+      bgImage: "/NGO Education.jpg"
     },
     {
-      title: "Building Healthy Futures",
+      title: "Building Healthy Futures", 
       subtitle: "Providing mental health support and wellness coaching for young people",
-      image: "/Mentalh.jpg"
+      color: "bg-theme-red",
+      bgImage: "/Mentalh.jpg"
     },
     {
       title: "Creating Tomorrow's Leaders",
-      subtitle: "Free education and counseling to help youth reach their potential",
-      image: "/NGO Education.jpg"
+      subtitle: "Free education and counseling to help youth reach their potential", 
+      color: "bg-theme-gold",
+      bgImage: "/Image 2.jpg"
     }
   ];
 
@@ -33,45 +37,65 @@ const Index = () => {
     return () => clearInterval(timer);
   }, []);
 
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="relative h-[70vh] overflow-hidden">
+      {/* Hero Section with Background Images */}
+      <section className="relative h-[85vh] overflow-hidden">
         {heroSlides.map((slide, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              currentSlide === index ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+              currentSlide === index ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
+            style={{
+              backgroundImage: `url('${slide.bgImage}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
           >
-            <div
-              className="h-full bg-cover bg-center relative"
-              style={{ backgroundImage: `url(${slide.image})` }}
-            >
-              <div className="absolute inset-0 bg-black bg-opacity-50" />
-              <div className="relative h-full flex items-center justify-center text-white text-center px-4">
-                <div className="max-w-4xl animate-fade-in">
-                  <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-lg">
-                    {slide.title}
-                  </h1>
-                  <p className="text-xl md:text-2xl mb-8 text-gray-100">
-                    {slide.subtitle}
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Link to="/donate">
-                      <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 text-lg">
-                        <Heart className="mr-2 h-5 w-5" />
-                        Donate Now
-                      </Button>
-                    </Link>
-                    <Link to="/programs">
-                      <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg">
-                        Learn More
-                      </Button>
-                    </Link>
-                  </div>
+            <div className="absolute inset-0 bg-black bg-opacity-60" />
+            
+            {/* Decorative Background Elements */}
+            <div className="absolute inset-0 overflow-hidden opacity-10">
+              <Heart className="absolute top-20 left-10 h-32 w-32 text-white animate-pulse" />
+              <BookOpen className="absolute top-32 right-20 h-24 w-24 text-white" />
+              <Users className="absolute bottom-40 left-20 h-28 w-28 text-white" />
+              <Brain className="absolute bottom-20 right-32 h-36 w-36 text-white" />
+              <Target className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-40 w-40 text-white opacity-5" />
+            </div>
+            
+            <div className="relative h-full flex items-center justify-center text-white text-center px-4 z-20">
+              <div className="max-w-5xl animate-fade-in">
+                <div className="mb-8">
+                  <Heart className="h-16 w-16 mx-auto mb-4 text-theme-gold animate-scale-in" />
+                </div>
+                <h1 className="text-5xl md:text-7xl font-bold mb-8 text-white drop-shadow-2xl font-poppins">
+                  {slide.title}
+                </h1>
+                <p className="text-xl md:text-2xl mb-12 text-gray-100 font-medium leading-relaxed">
+                  {slide.subtitle}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                  <Link to="/donate">
+                    <Button size="default" className="bg-white text-theme-black hover:bg-gray-100 px-6 py-3 text-base font-semibold shadow-xl border-2 border-transparent hover:border-theme-gold transition-all duration-300">
+                      <Heart className="mr-2 h-4 w-4" />
+                      Donate Now
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <Link to="/programs">
+                    <Button size="default" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-theme-black px-6 py-3 text-base font-semibold backdrop-blur-sm bg-white/10 transition-all duration-300">
+                      <BookOpen className="mr-2 h-4 w-4" />
+                      Learn More
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -79,62 +103,123 @@ const Index = () => {
         ))}
         
         {/* Slide indicators */}
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
           {heroSlides.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                currentSlide === index ? "bg-white" : "bg-white/50"
+              onClick={() => goToSlide(index)}
+              className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                currentSlide === index 
+                  ? "bg-theme-gold scale-125 shadow-lg" 
+                  : "bg-white/60 hover:bg-white/80"
               }`}
             />
           ))}
         </div>
       </section>
 
-      {/* Impact Stats */}
-      <section className="py-16 bg-gradient-to-r from-red-50 to-orange-50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div className="animate-fade-in">
-              <div className="text-4xl font-bold text-red-600 mb-2">500+</div>
-              <div className="text-gray-600">Children Reached</div>
+      {/* Impact Stats with Enhanced Design */}
+      <section 
+        className="py-20 relative overflow-hidden"
+        style={{
+          backgroundImage: `url('/Impa11.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        <div className="absolute inset-0 bg-white bg-opacity-95" />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-theme-black mb-4 font-poppins">Our Impact</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Making a difference in young lives every day</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="text-center bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-fade-in border-l-4 border-theme-green transform hover:scale-105">
+              <div className="w-16 h-16 bg-theme-green rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-white" />
+              </div>
+              <div className="text-4xl font-bold text-theme-green mb-3 font-poppins">500+</div>
+              <div className="text-gray-600 font-medium">Children Reached</div>
             </div>
-            <div className="animate-fade-in" style={{animationDelay: '0.1s'}}>
-              <div className="text-4xl font-bold text-red-600 mb-2">25+</div>
-              <div className="text-gray-600">Programs Offered</div>
+            
+            <div className="text-center bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-fade-in border-l-4 border-theme-red transform hover:scale-105" style={{animationDelay: '0.1s'}}>
+              <div className="w-16 h-16 bg-theme-red rounded-full flex items-center justify-center mx-auto mb-4">
+                <BookOpen className="h-8 w-8 text-white" />
+              </div>
+              <div className="text-4xl font-bold text-theme-red mb-3 font-poppins">25+</div>
+              <div className="text-gray-600 font-medium">Programs Offered</div>
             </div>
-            <div className="animate-fade-in" style={{animationDelay: '0.2s'}}>
-              <div className="text-4xl font-bold text-red-600 mb-2">15+</div>
-              <div className="text-gray-600">Expert Volunteers</div>
+            
+            <div className="text-center bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-fade-in border-l-4 border-theme-gold transform hover:scale-105" style={{animationDelay: '0.2s'}}>
+              <div className="w-16 h-16 bg-theme-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                <Heart className="h-8 w-8 text-white" />
+              </div>
+              <div className="text-4xl font-bold text-theme-gold mb-3 font-poppins">15+</div>
+              <div className="text-gray-600 font-medium">Expert Volunteers</div>
             </div>
-            <div className="animate-fade-in" style={{animationDelay: '0.3s'}}>
-              <div className="text-4xl font-bold text-red-600 mb-2">100%</div>
-              <div className="text-gray-600">Free Education</div>
+            
+            <div className="text-center bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-fade-in border-l-4 border-theme-black transform hover:scale-105" style={{animationDelay: '0.3s'}}>
+              <div className="w-16 h-16 bg-theme-black rounded-full flex items-center justify-center mx-auto mb-4">
+                <Target className="h-8 w-8 text-white" />
+              </div>
+              <div className="text-4xl font-bold text-theme-black mb-3 font-poppins">100%</div>
+              <div className="text-gray-600 font-medium">Free Education</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-red-600 to-red-700 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">Help Us Change Lives</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-red-100">
-            Your donation helps us provide free education, counseling, and life skills training to children who need it most.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/donate">
-              <Button size="lg" className="bg-white text-red-600 hover:bg-red-50 px-8 py-4 text-lg">
-                <Heart className="mr-2 h-5 w-5" />
-                Donate Today
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-red-600 px-8 py-4 text-lg">
-                Get Involved
-              </Button>
-            </Link>
+      {/* Call to Action with Enhanced Design */}
+      <section 
+        className="py-20 text-white relative overflow-hidden"
+        style={{
+          backgroundImage: `url('/Impa22.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+        <div className="absolute inset-0 bg-theme-red bg-opacity-85" />
+        
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-5 left-5">
+            <Heart className="h-24 w-24 text-white animate-pulse" />
+          </div>
+          <div className="absolute top-10 right-10">
+            <Users className="h-32 w-32 text-white" />
+          </div>
+          <div className="absolute bottom-5 left-1/4">
+            <BookOpen className="h-20 w-20 text-white" />
+          </div>
+          <div className="absolute bottom-10 right-1/4">
+            <Brain className="h-28 w-28 text-white" />
+          </div>
+        </div>
+        
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <Heart className="h-20 w-20 mx-auto mb-8 text-theme-gold animate-scale-in" />
+            <h2 className="text-4xl md:text-6xl font-bold mb-8 font-poppins">Help Us Change Lives</h2>
+            <p className="text-xl md:text-2xl mb-12 text-red-100 font-medium leading-relaxed max-w-3xl mx-auto">
+              Your donation helps us provide free education, counseling, and life skills training to children who need it most.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Link to="/donate">
+                <Button size="default" className="bg-theme-gold text-theme-black hover:bg-yellow-500 px-6 py-3 text-base font-semibold shadow-xl border-2 border-transparent hover:border-white transition-all duration-300">
+                  <Heart className="mr-2 h-4 w-4" />
+                  Donate Today
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button size="default" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-theme-red px-6 py-3 text-base font-semibold backdrop-blur-sm bg-white/10 transition-all duration-300">
+                  <Users className="mr-2 h-4 w-4" />
+                  Get Involved
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
