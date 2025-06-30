@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -32,8 +31,6 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     
-    console.log('Submitting form data:', formData);
-    
     try {
       const { error } = await supabase
         .from('contact_messages')
@@ -46,7 +43,6 @@ const Contact = () => {
         }]);
 
       if (error) {
-        console.error('Supabase error:', error);
         throw error;
       }
 
@@ -64,7 +60,6 @@ const Contact = () => {
         message: ""
       });
     } catch (error) {
-      console.error('Error sending message:', error);
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",

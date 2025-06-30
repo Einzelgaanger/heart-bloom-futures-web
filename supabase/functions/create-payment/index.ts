@@ -1,4 +1,3 @@
-
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14.21.0";
 
@@ -20,8 +19,6 @@ serve(async (req) => {
     });
 
     const { amount, currency = 'usd', donor_info, payment_method } = await req.json();
-
-    console.log('Creating payment session:', { amount, currency, donor_info, payment_method });
 
     // Create a checkout session
     const session = await stripe.checkout.sessions.create({
@@ -50,14 +47,11 @@ serve(async (req) => {
       },
     });
 
-    console.log('Payment session created:', session.id);
-
     return new Response(JSON.stringify({ url: session.url }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     });
   } catch (error) {
-    console.error('Error creating payment session:', error);
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,

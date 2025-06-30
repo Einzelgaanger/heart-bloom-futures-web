@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -29,7 +28,6 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
     const loadPayPalSDK = () => {
       // Check if PayPal is already loaded
       if (window.paypal) {
-        console.log('PayPal already loaded');
         setIsLoading(false);
         renderPayPalButton();
         return;
@@ -39,23 +37,17 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
       const existingScripts = document.querySelectorAll('script[src*="paypal.com"]');
       existingScripts.forEach(script => script.remove());
 
-      console.log('Loading PayPal SDK...');
-      
       const script = document.createElement('script');
       // Use the simplest possible SDK URL to avoid parameter conflicts
       script.src = `https://www.paypal.com/sdk/js?client-id=AQLhXL5Mw1Rs5Mk6vlRmUFMqRM1tHyyVKtg7rY7VQYD7ZVSgXrTTz28gAs2dTQcDqus4MQdx778lsafx&currency=USD`;
       script.async = true;
       
       script.onload = () => {
-        console.log('PayPal script loaded');
-        // Wait a bit for PayPal to fully initialize
         setTimeout(() => {
           if (window.paypal && window.paypal.Buttons) {
-            console.log('PayPal SDK ready');
             setIsLoading(false);
             renderPayPalButton();
           } else {
-            console.error('PayPal SDK not ready');
             setError('PayPal failed to initialize');
             setIsLoading(false);
           }
@@ -63,7 +55,6 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
       };
       
       script.onerror = () => {
-        console.error('Failed to load PayPal script');
         setError('Failed to load PayPal');
         setIsLoading(false);
       };
@@ -83,11 +74,8 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
     paypalRef.current.innerHTML = '';
 
     try {
-      console.log('Rendering PayPal button for amount:', amount);
-      
       window.paypal.Buttons({
         createOrder: (data: any, actions: any) => {
-          console.log('Creating PayPal order for $' + amount);
           return actions.order.create({
             purchase_units: [{
               amount: {
@@ -101,9 +89,7 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
         
         onApprove: async (data: any, actions: any) => {
           try {
-            console.log('Payment approved, capturing order:', data.orderID);
             const details = await actions.order.capture();
-            console.log('Payment completed:', details);
             
             toast({
               title: "Payment Successful!",
@@ -118,7 +104,6 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
             }, 1500);
             
           } catch (error) {
-            console.error('Payment capture failed:', error);
             toast({
               title: "Payment Error",
               description: "There was an issue processing your payment. Please try again.",
@@ -129,7 +114,6 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
         },
         
         onError: (err: any) => {
-          console.error('PayPal error:', err);
           toast({
             title: "Payment Error",
             description: "There was an issue with the payment. Please try again.",
@@ -139,7 +123,6 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
         },
         
         onCancel: (data: any) => {
-          console.log('Payment cancelled:', data);
           toast({
             title: "Payment Cancelled",
             description: "Your payment was cancelled.",
@@ -155,7 +138,6 @@ const PayPalButton = ({ amount, donorInfo, onSuccess, onError }: PayPalButtonPro
       }).render(paypalRef.current);
       
     } catch (err) {
-      console.error('Error rendering PayPal button:', err);
       setError('Failed to render payment button');
     }
   };

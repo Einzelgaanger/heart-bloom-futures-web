@@ -83,10 +83,7 @@ const Admin = () => {
         .order('created_at', { ascending: false });
       setMessages(messagesData || []);
 
-      console.log('Fetched data:', { settingsData, eventsData, visitsData, messagesData });
-
     } catch (error) {
-      console.error('Error fetching data:', error);
       toast({
         title: "Error",
         description: "Failed to fetch data",
@@ -111,7 +108,6 @@ const Admin = () => {
         description: "Setting updated successfully",
       });
     } catch (error) {
-      console.error('Error updating setting:', error);
       toast({
         title: "Error",
         description: "Failed to update setting",
@@ -175,7 +171,6 @@ const Admin = () => {
         description: "Event added successfully",
       });
     } catch (error) {
-      console.error('Error adding event:', error);
       toast({
         title: "Error",
         description: "Failed to add event",
@@ -220,7 +215,6 @@ const Admin = () => {
         description: "Event updated successfully",
       });
     } catch (error) {
-      console.error('Error updating event:', error);
       toast({
         title: "Error",
         description: "Failed to update event",
@@ -246,7 +240,6 @@ const Admin = () => {
         description: "Event deleted successfully",
       });
     } catch (error) {
-      console.error('Error deleting event:', error);
       toast({
         title: "Error",
         description: "Failed to delete event",
@@ -296,7 +289,6 @@ const Admin = () => {
         description: "Visit added successfully",
       });
     } catch (error) {
-      console.error('Error adding visit:', error);
       toast({
         title: "Error",
         description: "Failed to add visit",
@@ -343,7 +335,6 @@ const Admin = () => {
         description: "Visit updated successfully",
       });
     } catch (error) {
-      console.error('Error updating visit:', error);
       toast({
         title: "Error",
         description: "Failed to update visit",
@@ -369,7 +360,6 @@ const Admin = () => {
         description: "Visit deleted successfully",
       });
     } catch (error) {
-      console.error('Error deleting visit:', error);
       toast({
         title: "Error",
         description: "Failed to delete visit",
@@ -393,7 +383,6 @@ const Admin = () => {
         description: "Message marked as read",
       });
     } catch (error) {
-      console.error('Error updating message:', error);
       toast({
         title: "Error",
         description: "Failed to update message",
@@ -419,7 +408,6 @@ const Admin = () => {
         description: "Message deleted successfully",
       });
     } catch (error) {
-      console.error('Error deleting message:', error);
       toast({
         title: "Error",
         description: "Failed to delete message",

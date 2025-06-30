@@ -1,4 +1,3 @@
-
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -62,54 +61,8 @@ const About = () => {
                   alt="Children learning" 
                   className="rounded-lg shadow-lg w-full"
                 />
-<<<<<<< HEAD
-                <CardTitle className="text-xl text-gray-800">Alfred Mulinge</CardTitle>
-                <p className="text-red-600 font-medium">Founder & Executive Director</p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 text-sm">
-                  6+ years experience in counselling and youth development. Passionate about empowering the next generation.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <img 
-                  src="/Jotham.jpg" 
-                  alt="Program Director" 
-                  className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-                />
-                <CardTitle className="text-xl text-gray-800">Jotham Siror</CardTitle>
-                <p className="text-red-600 font-medium"> Programs & Strategy Director</p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 text-sm">
-                Young passionate environmentalist with a love for mentorship and youth engagement
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <img 
-                  src="/ebrahim.jpg" 
-                  alt="Technology Director" 
-                  className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-                />
-                <CardTitle className="text-xl text-gray-800">Ebrahim Jin </CardTitle>
-                <p className="text-red-600 font-medium">Technology & Innovation Director</p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 text-sm">
-                  AI and technology specialist dedicated to teaching digital literacy and future-ready skills.
-                </p>
-              </CardContent>
-            </Card>
-=======
               </div>
             </div>
->>>>>>> fd78605a947a8193879fe791f691774cba684035
           </div>
         </section>
 
@@ -258,7 +211,7 @@ const About = () => {
               <Card className="text-center hover:shadow-lg transition-shadow bg-white/95 backdrop-blur-sm">
                 <CardHeader>
                   <img 
-                    src="/Tee.jpg" 
+                    src="/ebrahim.jpg" 
                     alt="Technology Director" 
                     className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
                   />
