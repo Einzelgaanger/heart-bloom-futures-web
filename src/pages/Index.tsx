@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Heart, BookOpen, Users, Brain, Target, ArrowRight } from "lucide-react";
+import { Heart, BookOpen, Users, Brain, Target, ArrowRight, Globe, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -13,17 +13,20 @@ const Index = () => {
     {
       title: "Empowering Young Minds",
       subtitle: "Teaching financial literacy, creativity, and life skills to children up to 25",
-      color: "bg-theme-green"
+      color: "bg-theme-green",
+      bgImage: "/NGO Education.jpg"
     },
     {
       title: "Building Healthy Futures", 
       subtitle: "Providing mental health support and wellness coaching for young people",
-      color: "bg-theme-red"
+      color: "bg-theme-red",
+      bgImage: "/Mentalh.jpg"
     },
     {
       title: "Creating Tomorrow's Leaders",
       subtitle: "Free education and counseling to help youth reach their potential", 
-      color: "bg-theme-gold"
+      color: "bg-theme-gold",
+      bgImage: "/Image 2.jpg"
     }
   ];
 
@@ -42,16 +45,22 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       <Navigation />
       
-      {/* Hero Section with Decorative Background */}
+      {/* Hero Section with Background Images */}
       <section className="relative h-[85vh] overflow-hidden">
         {heroSlides.map((slide, index) => (
           <div
             key={index}
             className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
               currentSlide === index ? "opacity-100 z-10" : "opacity-0 z-0"
-            } ${slide.color}`}
+            }`}
+            style={{
+              backgroundImage: `url('${slide.bgImage}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
           >
-            <div className="absolute inset-0 bg-black bg-opacity-20" />
+            <div className="absolute inset-0 bg-black bg-opacity-60" />
             
             {/* Decorative Background Elements */}
             <div className="absolute inset-0 overflow-hidden opacity-10">
@@ -110,18 +119,16 @@ const Index = () => {
       </section>
 
       {/* Impact Stats with Enhanced Design */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 left-10">
-            <Heart className="h-32 w-32 text-theme-red animate-pulse" />
-          </div>
-          <div className="absolute bottom-10 right-10">
-            <BookOpen className="h-40 w-40 text-theme-green" />
-          </div>
-          <div className="absolute top-1/2 left-1/4">
-            <Users className="h-24 w-24 text-theme-gold" />
-          </div>
-        </div>
+      <section 
+        className="py-20 relative overflow-hidden"
+        style={{
+          backgroundImage: `url('/Impa11.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        <div className="absolute inset-0 bg-white bg-opacity-95" />
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
@@ -166,7 +173,16 @@ const Index = () => {
       </section>
 
       {/* Call to Action with Enhanced Design */}
-      <section className="py-20 bg-theme-red text-white relative overflow-hidden">
+      <section 
+        className="py-20 text-white relative overflow-hidden"
+        style={{
+          backgroundImage: `url('/Impa22.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+        <div className="absolute inset-0 bg-theme-red bg-opacity-85" />
+        
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-5 left-5">
             <Heart className="h-24 w-24 text-white animate-pulse" />
