@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Heart, BookOpen, Users, Brain, Target, ArrowRight, Globe, Award, DollarSign, GraduationCap, Shield, Smartphone } from "lucide-react";
+import { Heart, BookOpen, Users, Brain, Target, ArrowRight, Globe, Award, DollarSign, GraduationCap, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -13,17 +13,17 @@ const Index = () => {
     {
       title: "Empowering Young Minds",
       subtitle: "Teaching financial literacy, creativity, and life skills to children up to 25",
-      color: "bg-theme-green",
+      color: "bg-gradient-to-br from-theme-green via-green-500 to-emerald-600",
     },
     {
       title: "Building Healthy Futures", 
       subtitle: "Providing mental health support and wellness coaching for young people",
-      color: "bg-theme-red",
+      color: "bg-gradient-to-br from-theme-red via-red-500 to-rose-600",
     },
     {
       title: "Creating Tomorrow's Leaders",
       subtitle: "Free education and counseling to help youth reach their potential", 
-      color: "bg-theme-gold",
+      color: "bg-gradient-to-br from-theme-gold via-yellow-500 to-amber-600",
     }
   ];
 
@@ -42,7 +42,7 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation />
       
-      {/* Hero Section with Gradient Backgrounds */}
+      {/* Hero Section with Creative Backgrounds */}
       <section className="relative h-[80vh] overflow-hidden">
         {heroSlides.map((slide, index) => (
           <div
@@ -51,10 +51,17 @@ const Index = () => {
               currentSlide === index ? "opacity-100 z-10" : "opacity-0 z-0"
             } ${slide.color}`}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/30 to-transparent" />
+            <div className="absolute inset-0 bg-black/30" />
             
-            {/* Decorative Background Elements */}
-            <div className="absolute inset-0 overflow-hidden opacity-10">
+            {/* Creative Background Pattern */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-0 left-0 w-full h-full">
+                <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-white/20 animate-pulse"></div>
+                <div className="absolute top-32 right-20 w-16 h-16 rounded-full bg-white/15"></div>
+                <div className="absolute bottom-40 left-20 w-24 h-24 rounded-full bg-white/20"></div>
+                <div className="absolute bottom-20 right-32 w-32 h-32 rounded-full bg-white/15 animate-pulse"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full bg-white/10"></div>
+              </div>
               <Heart className="absolute top-20 left-10 h-24 w-24 text-white animate-pulse" />
               <BookOpen className="absolute top-32 right-20 h-20 w-20 text-white" />
               <Users className="absolute bottom-40 left-20 h-22 w-22 text-white" />
@@ -74,14 +81,14 @@ const Index = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                   <Link to="/donate">
-                    <Button size="sm" className="bg-white text-theme-black hover:bg-gray-100 px-4 py-2 text-sm font-semibold shadow-xl border-2 border-transparent hover:border-theme-gold transition-all duration-300">
+                    <Button size="sm" className="bg-white text-theme-black hover:bg-gray-100 px-6 py-2 text-sm font-semibold shadow-xl border-2 border-transparent hover:border-theme-gold transition-all duration-300">
                       <Heart className="mr-2 h-4 w-4" />
                       Donate Now
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
                   <Link to="/programs">
-                    <Button size="sm" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-theme-black px-4 py-2 text-sm font-semibold backdrop-blur-sm bg-white/10 transition-all duration-300">
+                    <Button size="sm" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-theme-black px-6 py-2 text-sm font-semibold backdrop-blur-sm bg-white/10 transition-all duration-300">
                       <BookOpen className="mr-2 h-4 w-4" />
                       Learn More
                     </Button>
@@ -108,9 +115,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Program Dashboards */}
-      <section className="py-16 bg-gradient-to-br from-gray-50 via-blue-50 to-green-50">
-        <div className="container mx-auto px-4">
+      {/* Program Dashboards with Creative Background */}
+      <section className="py-16 bg-gradient-to-br from-emerald-50 via-teal-50 to-green-100 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-64 h-64 bg-theme-green rounded-full -translate-x-32 -translate-y-32"></div>
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-theme-red rounded-full translate-x-40 translate-y-40"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-theme-gold rounded-full"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-theme-black mb-4 font-poppins">Our Programs</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">Comprehensive support across key areas of development</p>
@@ -189,9 +202,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Impact Stats */}
-      <section className="py-16 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-        <div className="container mx-auto px-4">
+      {/* Impact Stats with Creative Background */}
+      <section className="py-16 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 w-32 h-32 border-4 border-theme-gold rounded-full animate-spin" style={{animationDuration: '20s'}}></div>
+          <div className="absolute bottom-10 right-10 w-24 h-24 border-4 border-theme-red rounded-full animate-bounce"></div>
+          <div className="absolute top-1/3 right-1/4 w-20 h-20 bg-theme-green rounded-full animate-pulse"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-theme-black mb-4 font-poppins">Our Impact</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">Making a difference in young lives every day</p>
@@ -233,51 +252,33 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Simplified Donation Section */}
+      {/* Simplified Call to Action */}
       <section className="py-16 bg-gradient-to-br from-theme-red via-red-600 to-red-700 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-y-12"></div>
           <Heart className="absolute top-5 left-5 h-20 w-20 text-white animate-pulse" />
           <Users className="absolute top-10 right-10 h-24 w-24 text-white" />
-          <Smartphone className="absolute bottom-5 left-1/4 h-16 w-16 text-white" />
           <Shield className="absolute bottom-10 right-1/4 h-20 w-20 text-white" />
         </div>
         
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-3xl mx-auto">
             <Heart className="h-16 w-16 mx-auto mb-6 text-theme-gold animate-scale-in" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-poppins">Support Our Mission</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-poppins">Join Our Mission</h2>
             <p className="text-lg md:text-xl mb-8 text-red-100 font-medium leading-relaxed">
-              Your donation helps us provide free education, counseling, and life skills training to children who need it most.
+              Your support helps us provide free education, counseling, and life skills training to children who need it most.
             </p>
             
-            {/* Simple M-Pesa Info */}
-            <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 mb-8 max-w-md mx-auto">
-              <div className="flex items-center justify-center mb-4">
-                <Smartphone className="h-8 w-8 text-theme-gold mr-3" />
-                <h3 className="text-xl font-bold">M-Pesa Donation</h3>
-              </div>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-red-100">Paybill:</span>
-                  <span className="text-2xl font-bold text-theme-gold">522533</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-red-100">Account:</span>
-                  <span className="text-2xl font-bold text-theme-gold">7760083</span>
-                </div>
-              </div>
-            </div>
-            
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/payment">
-                <Button size="sm" className="bg-theme-gold text-theme-black hover:bg-yellow-500 px-4 py-2 text-sm font-semibold shadow-xl border-2 border-transparent hover:border-white transition-all duration-300">
+              <Link to="/donate">
+                <Button size="sm" className="bg-theme-gold text-theme-black hover:bg-yellow-500 px-6 py-2 text-sm font-semibold shadow-xl border-2 border-transparent hover:border-white transition-all duration-300">
                   <Heart className="mr-2 h-4 w-4" />
-                  Donate Now
+                  Support Us
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/contact">
-                <Button size="sm" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-theme-red px-4 py-2 text-sm font-semibold backdrop-blur-sm bg-white/10 transition-all duration-300">
+                <Button size="sm" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-theme-red px-6 py-2 text-sm font-semibold backdrop-blur-sm bg-white/10 transition-all duration-300">
                   <Users className="mr-2 h-4 w-4" />
                   Get Involved
                 </Button>

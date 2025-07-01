@@ -45,7 +45,7 @@ const Navigation = () => {
               </Link>
             ))}
             <Link to="/donate">
-              <Button className="bg-red-600 hover:bg-red-700 text-white px-6 py-2">
+              <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 text-sm">
                 Donate Now
               </Button>
             </Link>
@@ -79,7 +79,7 @@ const Navigation = () => {
                 </Link>
               ))}
               <Link to="/donate" onClick={() => setIsOpen(false)}>
-                <Button className="bg-red-600 hover:bg-red-700 text-white w-full">
+                <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white w-full text-sm">
                   Donate Now
                 </Button>
               </Link>
