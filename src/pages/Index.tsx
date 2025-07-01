@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Heart, BookOpen, Users, Brain, Target, ArrowRight, Globe, Award, DollarSign, GraduationCap, Shield } from "lucide-react";
+import { Heart, BookOpen, Users, Brain, Target, ArrowRight, DollarSign, GraduationCap } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -13,17 +13,17 @@ const Index = () => {
     {
       title: "Empowering Young Minds",
       subtitle: "Teaching financial literacy, creativity, and life skills to children up to 25",
-      color: "bg-gradient-to-br from-theme-green via-green-500 to-emerald-600",
+      color: "bg-gradient-to-br from-green-600 to-emerald-600",
     },
     {
       title: "Building Healthy Futures", 
       subtitle: "Providing mental health support and wellness coaching for young people",
-      color: "bg-gradient-to-br from-theme-red via-red-500 to-rose-600",
+      color: "bg-gradient-to-br from-red-600 to-rose-600",
     },
     {
       title: "Creating Tomorrow's Leaders",
       subtitle: "Free education and counseling to help youth reach their potential", 
-      color: "bg-gradient-to-br from-theme-gold via-yellow-500 to-amber-600",
+      color: "bg-gradient-to-br from-yellow-600 to-amber-600",
     }
   ];
 
@@ -42,53 +42,36 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation />
       
-      {/* Hero Section with Creative Backgrounds */}
-      <section className="relative h-[80vh] overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative h-[70vh]">
         {heroSlides.map((slide, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-              currentSlide === index ? "opacity-100 z-10" : "opacity-0 z-0"
+            className={`absolute inset-0 transition-all duration-1000 ${
+              currentSlide === index ? "opacity-100" : "opacity-0"
             } ${slide.color}`}
           >
-            <div className="absolute inset-0 bg-black/30" />
+            <div className="absolute inset-0 bg-black/20" />
             
-            {/* Creative Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 left-0 w-full h-full">
-                <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-white/20 animate-pulse"></div>
-                <div className="absolute top-32 right-20 w-16 h-16 rounded-full bg-white/15"></div>
-                <div className="absolute bottom-40 left-20 w-24 h-24 rounded-full bg-white/20"></div>
-                <div className="absolute bottom-20 right-32 w-32 h-32 rounded-full bg-white/15 animate-pulse"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full bg-white/10"></div>
-              </div>
-              <Heart className="absolute top-20 left-10 h-24 w-24 text-white animate-pulse" />
-              <BookOpen className="absolute top-32 right-20 h-20 w-20 text-white" />
-              <Users className="absolute bottom-40 left-20 h-22 w-22 text-white" />
-              <Brain className="absolute bottom-20 right-32 h-28 w-28 text-white" />
-            </div>
-            
-            <div className="relative h-full flex items-center justify-center text-white text-center px-4 z-20">
-              <div className="max-w-4xl animate-fade-in">
-                <div className="mb-6">
-                  <Heart className="h-12 w-12 mx-auto mb-4 text-theme-gold animate-scale-in" />
-                </div>
-                <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-2xl font-poppins">
+            <div className="relative h-full flex items-center justify-center text-white text-center px-4">
+              <div className="max-w-3xl">
+                <Heart className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
+                <h1 className="text-3xl md:text-5xl font-bold mb-4">
                   {slide.title}
                 </h1>
-                <p className="text-lg md:text-xl mb-8 text-gray-100 font-medium leading-relaxed">
+                <p className="text-lg mb-6 text-gray-100">
                   {slide.subtitle}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Link to="/donate">
-                    <Button size="sm" className="bg-white text-theme-black hover:bg-gray-100 px-6 py-2 text-sm font-semibold shadow-xl border-2 border-transparent hover:border-theme-gold transition-all duration-300">
+                    <Button className="bg-white text-gray-900 hover:bg-gray-100">
                       <Heart className="mr-2 h-4 w-4" />
                       Donate Now
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
                   <Link to="/programs">
-                    <Button size="sm" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-theme-black px-6 py-2 text-sm font-semibold backdrop-blur-sm bg-white/10 transition-all duration-300">
+                    <Button variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900">
                       <BookOpen className="mr-2 h-4 w-4" />
                       Learn More
                     </Button>
@@ -100,14 +83,14 @@ const Index = () => {
         ))}
         
         {/* Slide indicators */}
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 z-30">
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
           {heroSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`w-3 h-3 rounded-full transition-all ${
                 currentSlide === index 
-                  ? "bg-theme-gold scale-125 shadow-lg" 
+                  ? "bg-yellow-400 scale-125" 
                   : "bg-white/60 hover:bg-white/80"
               }`}
             />
@@ -115,85 +98,79 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Program Dashboards with Creative Background */}
-      <section className="py-16 bg-gradient-to-br from-emerald-50 via-teal-50 to-green-100 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-0 w-64 h-64 bg-theme-green rounded-full -translate-x-32 -translate-y-32"></div>
-          <div className="absolute bottom-0 right-0 w-80 h-80 bg-theme-red rounded-full translate-x-40 translate-y-40"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-theme-gold rounded-full"></div>
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
+      {/* Program Dashboards */}
+      <section className="py-16 bg-gradient-to-br from-emerald-50 to-teal-50">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-theme-black mb-4 font-poppins">Our Programs</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Comprehensive support across key areas of development</p>
+            <h2 className="text-3xl font-bold mb-4">Our Programs</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">Comprehensive support across key areas</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Financial Literacy Dashboard */}
-            <div className="bg-gradient-to-br from-theme-green to-green-600 p-8 rounded-2xl shadow-xl text-white transform hover:scale-105 transition-all duration-300">
-              <div className="flex items-center justify-between mb-6">
-                <DollarSign className="h-12 w-12 text-white" />
+            {/* Financial Literacy */}
+            <div className="bg-gradient-to-br from-green-600 to-green-700 p-6 rounded-xl text-white transform hover:scale-105 transition-all">
+              <div className="flex items-center justify-between mb-4">
+                <DollarSign className="h-10 w-10" />
                 <div className="text-right">
-                  <div className="text-2xl font-bold">85%</div>
+                  <div className="text-xl font-bold">85%</div>
                   <div className="text-green-100 text-sm">Success Rate</div>
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-3">Financial Literacy</h3>
-              <p className="text-green-100 mb-4">Teaching money management, savings, and entrepreneurship skills</p>
-              <div className="space-y-2">
+              <h3 className="text-lg font-bold mb-2">Financial Literacy</h3>
+              <p className="text-green-100 mb-4 text-sm">Money management and entrepreneurship skills</p>
+              <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-sm">Active Participants</span>
+                  <span>Participants</span>
                   <span className="font-semibold">150+</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm">Workshops This Month</span>
-                  <span className="font-semibold">12</span>
+                  <span>Workshops</span>
+                  <span className="font-semibold">12/month</span>
                 </div>
               </div>
             </div>
 
-            {/* Education Dashboard */}
-            <div className="bg-gradient-to-br from-theme-red to-red-600 p-8 rounded-2xl shadow-xl text-white transform hover:scale-105 transition-all duration-300">
-              <div className="flex items-center justify-between mb-6">
-                <GraduationCap className="h-12 w-12 text-white" />
+            {/* Education */}
+            <div className="bg-gradient-to-br from-red-600 to-red-700 p-6 rounded-xl text-white transform hover:scale-105 transition-all">
+              <div className="flex items-center justify-between mb-4">
+                <GraduationCap className="h-10 w-10" />
                 <div className="text-right">
-                  <div className="text-2xl font-bold">92%</div>
-                  <div className="text-red-100 text-sm">Completion Rate</div>
+                  <div className="text-xl font-bold">92%</div>
+                  <div className="text-red-100 text-sm">Completion</div>
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-3">Education Support</h3>
-              <p className="text-red-100 mb-4">Free tutoring, mentorship, and academic guidance</p>
-              <div className="space-y-2">
+              <h3 className="text-lg font-bold mb-2">Education Support</h3>
+              <p className="text-red-100 mb-4 text-sm">Free tutoring and academic guidance</p>
+              <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-sm">Students Supported</span>
+                  <span>Students</span>
                   <span className="font-semibold">200+</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm">Study Groups</span>
+                  <span>Study Groups</span>
                   <span className="font-semibold">8</span>
                 </div>
               </div>
             </div>
 
-            {/* Mental Health Dashboard */}
-            <div className="bg-gradient-to-br from-theme-gold to-yellow-600 p-8 rounded-2xl shadow-xl text-white transform hover:scale-105 transition-all duration-300">
-              <div className="flex items-center justify-between mb-6">
-                <Brain className="h-12 w-12 text-white" />
+            {/* Mental Health */}
+            <div className="bg-gradient-to-br from-yellow-600 to-yellow-700 p-6 rounded-xl text-white transform hover:scale-105 transition-all">
+              <div className="flex items-center justify-between mb-4">
+                <Brain className="h-10 w-10" />
                 <div className="text-right">
-                  <div className="text-2xl font-bold">98%</div>
+                  <div className="text-xl font-bold">98%</div>
                   <div className="text-yellow-100 text-sm">Satisfaction</div>
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-3">Mental Wellness</h3>
-              <p className="text-yellow-100 mb-4">Counseling, therapy, and emotional support services</p>
-              <div className="space-y-2">
+              <h3 className="text-lg font-bold mb-2">Mental Wellness</h3>
+              <p className="text-yellow-100 mb-4 text-sm">Counseling and emotional support</p>
+              <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-sm">Sessions This Week</span>
-                  <span className="font-semibold">25</span>
+                  <span>Sessions</span>
+                  <span className="font-semibold">25/week</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm">Support Groups</span>
+                  <span>Support Groups</span>
                   <span className="font-semibold">5</span>
                 </div>
               </div>
@@ -202,83 +179,70 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Impact Stats with Creative Background */}
-      <section className="py-16 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-32 h-32 border-4 border-theme-gold rounded-full animate-spin" style={{animationDuration: '20s'}}></div>
-          <div className="absolute bottom-10 right-10 w-24 h-24 border-4 border-theme-red rounded-full animate-bounce"></div>
-          <div className="absolute top-1/3 right-1/4 w-20 h-20 bg-theme-green rounded-full animate-pulse"></div>
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
+      {/* Impact Stats */}
+      <section className="py-16 bg-gradient-to-br from-indigo-50 to-purple-50">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-theme-black mb-4 font-poppins">Our Impact</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Making a difference in young lives every day</p>
+            <h2 className="text-3xl font-bold mb-4">Our Impact</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">Making a difference every day</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="text-center bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-l-4 border-theme-green transform hover:scale-105">
-              <div className="w-12 h-12 bg-theme-green rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-6 w-6 text-white" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow">
+              <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Users className="h-5 w-5 text-white" />
               </div>
-              <div className="text-3xl font-bold text-theme-green mb-2 font-poppins">500+</div>
-              <div className="text-gray-600 font-medium">Children Reached</div>
+              <div className="text-2xl font-bold text-green-600 mb-1">500+</div>
+              <div className="text-gray-600 text-sm">Children Reached</div>
             </div>
             
-            <div className="text-center bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-l-4 border-theme-red transform hover:scale-105">
-              <div className="w-12 h-12 bg-theme-red rounded-full flex items-center justify-center mx-auto mb-4">
-                <BookOpen className="h-6 w-6 text-white" />
+            <div className="text-center bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow">
+              <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <BookOpen className="h-5 w-5 text-white" />
               </div>
-              <div className="text-3xl font-bold text-theme-red mb-2 font-poppins">25+</div>
-              <div className="text-gray-600 font-medium">Programs Offered</div>
+              <div className="text-2xl font-bold text-red-600 mb-1">25+</div>
+              <div className="text-gray-600 text-sm">Programs</div>
             </div>
             
-            <div className="text-center bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-l-4 border-theme-gold transform hover:scale-105">
-              <div className="w-12 h-12 bg-theme-gold rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="h-6 w-6 text-white" />
+            <div className="text-center bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow">
+              <div className="w-10 h-10 bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Heart className="h-5 w-5 text-white" />
               </div>
-              <div className="text-3xl font-bold text-theme-gold mb-2 font-poppins">15+</div>
-              <div className="text-gray-600 font-medium">Expert Volunteers</div>
+              <div className="text-2xl font-bold text-yellow-600 mb-1">15+</div>
+              <div className="text-gray-600 text-sm">Volunteers</div>
             </div>
             
-            <div className="text-center bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-l-4 border-theme-black transform hover:scale-105">
-              <div className="w-12 h-12 bg-theme-black rounded-full flex items-center justify-center mx-auto mb-4">
-                <Target className="h-6 w-6 text-white" />
+            <div className="text-center bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow">
+              <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Target className="h-5 w-5 text-white" />
               </div>
-              <div className="text-3xl font-bold text-theme-black mb-2 font-poppins">100%</div>
-              <div className="text-gray-600 font-medium">Free Education</div>
+              <div className="text-2xl font-bold text-gray-800 mb-1">100%</div>
+              <div className="text-gray-600 text-sm">Free Education</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Simplified Call to Action */}
-      <section className="py-16 bg-gradient-to-br from-theme-red via-red-600 to-red-700 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-y-12"></div>
-          <Heart className="absolute top-5 left-5 h-20 w-20 text-white animate-pulse" />
-          <Users className="absolute top-10 right-10 h-24 w-24 text-white" />
-          <Shield className="absolute bottom-10 right-1/4 h-20 w-20 text-white" />
-        </div>
-        
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="max-w-3xl mx-auto">
-            <Heart className="h-16 w-16 mx-auto mb-6 text-theme-gold animate-scale-in" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-poppins">Join Our Mission</h2>
-            <p className="text-lg md:text-xl mb-8 text-red-100 font-medium leading-relaxed">
-              Your support helps us provide free education, counseling, and life skills training to children who need it most.
+      {/* Call to Action */}
+      <section className="py-16 bg-gradient-to-r from-red-600 to-red-700 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-2xl mx-auto">
+            <Heart className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
+            <h2 className="text-3xl font-bold mb-4">Join Our Mission</h2>
+            <p className="text-lg mb-6 text-red-100">
+              Your support helps us provide free education and life skills training to children who need it most.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/donate">
-                <Button size="sm" className="bg-theme-gold text-theme-black hover:bg-yellow-500 px-6 py-2 text-sm font-semibold shadow-xl border-2 border-transparent hover:border-white transition-all duration-300">
+                <Button className="bg-yellow-500 text-gray-900 hover:bg-yellow-400">
                   <Heart className="mr-2 h-4 w-4" />
                   Support Us
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/contact">
-                <Button size="sm" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-theme-red px-6 py-2 text-sm font-semibold backdrop-blur-sm bg-white/10 transition-all duration-300">
+                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-red-600">
                   <Users className="mr-2 h-4 w-4" />
                   Get Involved
                 </Button>

@@ -6,50 +6,40 @@ import { Heart, Users, Target, Award } from "lucide-react";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
       <Navigation />
       
       {/* Hero Section */}
-      <section 
-        className="py-12 text-white relative bg-gradient-to-br from-theme-black via-gray-800 to-gray-900"
-        style={{
-          backgroundImage: `url('/Mentalh.jpg')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}
-      >
-        <div className="absolute inset-0 bg-theme-red bg-opacity-85" />
-        
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <Heart className="h-12 w-12 mx-auto mb-4 text-theme-gold animate-scale-in" />
-          <h1 className="text-2xl md:text-3xl font-bold mb-4 font-poppins">About Santa's Heart</h1>
-          <p className="text-lg text-gray-200 max-w-2xl mx-auto">
-            Empowering children through education, counseling, and life skills training
+      <section className="py-16 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <Heart className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
+          <h1 className="text-3xl font-bold mb-4">About Santa's Heart</h1>
+          <p className="text-lg max-w-2xl mx-auto">
+            Empowering children through education, counseling, and life skills
           </p>
         </div>
       </section>
       
       {/* Mission & Vision */}
-      <section className="py-16 bg-white/95 backdrop-blur-sm">
+      <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Our Mission</h2>
-              <p className="text-base text-gray-600 mb-4 leading-relaxed">
-                At Santa's Heart, we believe every child deserves access to quality education and support. Our mission is to 
-                provide free, comprehensive programs that equip young people aged 0-25 with essential life skills, including 
-                financial literacy, creative thinking, AI and technology awareness, and mental health support.
+              <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
+              <p className="text-gray-600 mb-4">
+                At Santa's Heart, we provide free education and support programs for young people 
+                aged 0-25, including financial literacy, creative thinking, AI awareness, and mental health support.
               </p>
-              <p className="text-base text-gray-600 leading-relaxed">
-                We are committed to breaking down barriers to education and creating opportunities for all children to reach 
-                their full potential, regardless of their background or circumstances.
+              <p className="text-gray-600">
+                We're committed to breaking down barriers and creating opportunities for all children 
+                to reach their full potential.
               </p>
             </div>
-            <div className="relative">
+            <div>
               <img 
                 src="/Impa11.jpg" 
                 alt="Children learning" 
-                className="rounded-lg shadow-lg w-full max-w-md mx-auto"
+                className="rounded-lg shadow-lg w-full"
               />
             </div>
           </div>
@@ -57,26 +47,26 @@ const About = () => {
       </section>
 
       {/* Vision */}
-      <section className="py-16 bg-gradient-to-r from-red-50/95 to-pink-50/95 backdrop-blur-sm">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="order-2 lg:order-1">
               <img 
                 src="/Impa22.png" 
                 alt="Youth empowerment" 
-                className="rounded-lg shadow-lg w-full max-w-md mx-auto"
+                className="rounded-lg shadow-lg w-full"
               />
             </div>
             <div className="order-1 lg:order-2">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Our Vision</h2>
-              <p className="text-base text-gray-600 mb-4 leading-relaxed">
-                We envision a world where every young person has the knowledge, skills, and confidence to create a 
-                successful, healthy, and fulfilling life. Through our comprehensive programs, we aim to build a 
-                generation of financially literate, creative, tech-savvy, and emotionally intelligent leaders.
+              <h2 className="text-2xl font-bold mb-4">Our Vision</h2>
+              <p className="text-gray-600 mb-4">
+                We envision a world where every young person has the knowledge and skills to create 
+                a successful life. Through our programs, we build financially literate, creative, 
+                and emotionally intelligent leaders.
               </p>
-              <p className="text-base text-gray-600 leading-relaxed">
-                Our vision extends beyond individual success to creating stronger communities where young people become 
-                positive change agents, helping others and contributing to society's overall well-being.
+              <p className="text-gray-600">
+                Our vision extends to creating stronger communities where young people become 
+                positive change agents.
               </p>
             </div>
           </div>
@@ -84,68 +74,66 @@ const About = () => {
       </section>
 
       {/* Core Values */}
-      <section className="py-16 bg-white/95 backdrop-blur-sm">
+      <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Our Core Values</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              The principles that guide everything we do
-            </p>
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold mb-2">Our Values</h2>
+            <p className="text-gray-600">The principles guiding our work</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center hover:shadow-lg transition-shadow bg-white/95 backdrop-blur-sm">
+            <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Heart className="h-8 w-8 text-red-600" />
+                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Heart className="h-6 w-6 text-red-600" />
                 </div>
-                <CardTitle className="text-lg text-gray-800">Compassion</CardTitle>
+                <CardTitle className="text-lg">Compassion</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600">
-                  We approach every child with empathy, understanding, and genuine care for their well-being and success.
+                  We approach every child with empathy and genuine care.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow bg-white/95 backdrop-blur-sm">
+            <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-8 w-8 text-blue-600" />
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Users className="h-6 w-6 text-blue-600" />
                 </div>
-                <CardTitle className="text-lg text-gray-800">Inclusivity</CardTitle>
+                <CardTitle className="text-lg">Inclusivity</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600">
-                  We welcome children from all backgrounds, ensuring equal access to our programs regardless of circumstances.
+                  We welcome children from all backgrounds with equal access.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow bg-white/95 backdrop-blur-sm">
+            <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Target className="h-8 w-8 text-green-600" />
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Target className="h-6 w-6 text-green-600" />
                 </div>
-                <CardTitle className="text-lg text-gray-800">Excellence</CardTitle>
+                <CardTitle className="text-lg">Excellence</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600">
-                  We strive for the highest quality in our programs, constantly improving to deliver exceptional education.
+                  We strive for the highest quality in our programs.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow bg-white/95 backdrop-blur-sm">
+            <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award className="h-8 w-8 text-purple-600" />
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Award className="h-6 w-6 text-purple-600" />
                 </div>
-                <CardTitle className="text-lg text-gray-800">Empowerment</CardTitle>
+                <CardTitle className="text-lg">Empowerment</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600">
-                  We believe in giving young people the tools and confidence to take control of their futures.
+                  We give young people tools to control their futures.
                 </p>
               </CardContent>
             </Card>
@@ -154,63 +142,61 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 bg-gradient-to-r from-gray-50/95 to-blue-50/95 backdrop-blur-sm">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Our Leadership Team</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Dedicated professionals committed to making a difference in young lives
-            </p>
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold mb-2">Our Team</h2>
+            <p className="text-gray-600">Dedicated professionals making a difference</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="text-center hover:shadow-lg transition-shadow bg-white/95 backdrop-blur-sm">
+            <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
                 <img 
                   src="/Founder.jpg" 
                   alt="Founder" 
-                  className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
+                  className="w-16 h-16 rounded-full mx-auto mb-3 object-cover"
                 />
-                <CardTitle className="text-lg text-gray-800">Alfred Mulinge</CardTitle>
-                <p className="text-red-600 font-medium text-sm">Founder & Executive Director</p>
+                <CardTitle className="text-lg">Alfred Mulinge</CardTitle>
+                <p className="text-red-600 text-sm">Founder & Executive Director</p>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 text-sm">
-                  6+ years experience in counselling and youth development. Passionate about empowering the next generation.
+                  6+ years experience in counselling and youth development.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow bg-white/95 backdrop-blur-sm">
+            <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
                 <img 
                   src="/Jotham.jpg" 
                   alt="Program Director" 
-                  className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
+                  className="w-16 h-16 rounded-full mx-auto mb-3 object-cover"
                 />
-                <CardTitle className="text-lg text-gray-800">Jotham Siror</CardTitle>
-                <p className="text-red-600 font-medium text-sm">Programs & Strategy Director</p>
+                <CardTitle className="text-lg">Jotham Siror</CardTitle>
+                <p className="text-red-600 text-sm">Programs Director</p>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 text-sm">
-                  Young passionate environmentalist with a love for mentorship and youth engagement
+                  Passionate environmentalist with love for mentorship.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow bg-white/95 backdrop-blur-sm">
+            <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
                 <img 
                   src="/ebrahim.jpg" 
                   alt="Technology Director" 
-                  className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
+                  className="w-16 h-16 rounded-full mx-auto mb-3 object-cover"
                 />
-                <CardTitle className="text-lg text-gray-800">Ebrahim Jin</CardTitle>
-                <p className="text-red-600 font-medium text-sm">Technology & Innovation Director</p>
+                <CardTitle className="text-lg">Ebrahim Jin</CardTitle>
+                <p className="text-red-600 text-sm">Technology Director</p>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 text-sm">
-                  AI and technology specialist dedicated to teaching digital literacy and future-ready skills.
+                  AI specialist teaching digital literacy and future skills.
                 </p>
               </CardContent>
             </Card>
