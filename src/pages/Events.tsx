@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -58,7 +57,7 @@ const Events = () => {
 
   return (
     <div 
-      className="min-h-screen relative"
+      className="min-h-screen relative bg-gradient-to-br from-purple-50 via-pink-50 to-rose-100"
       style={{
         backgroundImage: `url('/Image 2.jpg')`,
         backgroundSize: 'cover',
@@ -73,7 +72,7 @@ const Events = () => {
         
         {/* Hero Section */}
         <section 
-          className="py-16 text-white relative overflow-hidden"
+          className="py-12 text-white relative overflow-hidden bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-700"
           style={{
             backgroundImage: `url('/Joth.jpg')`,
             backgroundSize: 'cover',
@@ -83,10 +82,10 @@ const Events = () => {
           <div className="absolute inset-0 bg-theme-green bg-opacity-80" />
           
           <div className="container mx-auto px-4 text-center relative z-10">
-            <Calendar className="h-16 w-16 mx-auto mb-6 text-theme-gold animate-scale-in" />
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-poppins">Upcoming Events</h1>
-            <p className="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto leading-relaxed">
-              Join us for workshops, training sessions, and community events
+            <Calendar className="h-12 w-12 mx-auto mb-4 text-theme-gold animate-scale-in" />
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">Events & Activities</h1>
+            <p className="text-lg text-purple-100 max-w-2xl mx-auto">
+              Join us in our upcoming events and community activities
             </p>
           </div>
         </section>

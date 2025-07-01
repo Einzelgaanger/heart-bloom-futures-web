@@ -1,4 +1,3 @@
-
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -73,7 +72,7 @@ const Programs = () => {
 
   return (
     <div 
-      className="min-h-screen relative"
+      className="min-h-screen relative bg-gradient-to-br from-green-50 via-emerald-50 to-teal-100"
       style={{
         backgroundImage: `url('/Image 2.jpg')`,
         backgroundSize: 'cover',
@@ -88,7 +87,7 @@ const Programs = () => {
         
         {/* Hero Section */}
         <section 
-          className="py-16 text-white relative overflow-hidden"
+          className="py-12 text-white relative overflow-hidden bg-gradient-to-br from-theme-green via-green-600 to-emerald-700"
           style={{
             backgroundImage: `url('/NGO Education.jpg')`,
             backgroundSize: 'cover',
@@ -98,10 +97,10 @@ const Programs = () => {
           <div className="absolute inset-0 bg-theme-green bg-opacity-85" />
           
           <div className="container mx-auto px-4 text-center relative z-10">
-            <Brain className="h-16 w-16 mx-auto mb-6 text-theme-gold animate-scale-in" />
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-poppins">Our Programs</h1>
-            <p className="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto leading-relaxed">
-              Comprehensive skill development programs designed to empower young minds
+            <BookOpen className="h-12 w-12 mx-auto mb-4 text-theme-gold animate-scale-in" />
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">Our Programs</h1>
+            <p className="text-lg text-green-100 max-w-2xl mx-auto">
+              Comprehensive programs designed to support children's growth and development
             </p>
           </div>
         </section>

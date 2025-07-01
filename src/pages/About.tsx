@@ -6,7 +6,7 @@ import { Heart, Users, Target, Award } from "lucide-react";
 const About = () => {
   return (
     <div 
-      className="min-h-screen relative"
+      className="min-h-screen relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100"
       style={{
         backgroundImage: `url('/Jotham.jpg')`,
         backgroundSize: 'cover',
@@ -21,7 +21,7 @@ const About = () => {
         
         {/* Hero Section */}
         <section 
-          className="py-16 text-white relative overflow-hidden"
+          className="py-12 text-white relative overflow-hidden bg-gradient-to-br from-theme-black via-gray-800 to-gray-900"
           style={{
             backgroundImage: `url('/Mentalh.jpg')`,
             backgroundSize: 'cover',
@@ -31,10 +31,10 @@ const About = () => {
           <div className="absolute inset-0 bg-theme-red bg-opacity-85" />
           
           <div className="container mx-auto px-4 text-center relative z-10">
-            <Heart className="h-16 w-16 mx-auto mb-6 text-theme-gold animate-scale-in" />
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-poppins">About Santa's Heart</h1>
-            <p className="text-xl md:text-2xl text-red-100 max-w-3xl mx-auto leading-relaxed">
-              Empowering young minds through education, support, and opportunity
+            <Heart className="h-12 w-12 mx-auto mb-4 text-theme-gold animate-scale-in" />
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">About Santa's Heart</h1>
+            <p className="text-lg text-gray-200 max-w-2xl mx-auto">
+              Empowering children through education, counseling, and life skills training
             </p>
           </div>
         </section>

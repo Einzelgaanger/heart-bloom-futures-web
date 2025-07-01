@@ -1,10 +1,9 @@
-
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import MediaCarousel from "@/components/MediaCarousel";
-import { MapPin, Calendar, Users, Target } from "lucide-react";
+import { MapPin, Calendar, Users, Target, TrendingUp } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -62,7 +61,7 @@ const Impact = () => {
 
   return (
     <div 
-      className="min-h-screen relative"
+      className="min-h-screen relative bg-gradient-to-br from-yellow-50 via-orange-50 to-red-100"
       style={{
         backgroundImage: `url('/Tee.jpg')`,
         backgroundSize: 'cover',
@@ -77,7 +76,7 @@ const Impact = () => {
         
         {/* Hero Section */}
         <section 
-          className="py-16 text-white relative overflow-hidden"
+          className="py-12 text-white relative overflow-hidden bg-gradient-to-br from-theme-gold via-yellow-600 to-orange-600"
           style={{
             backgroundImage: `url('/Joth.jpg')`,
             backgroundSize: 'cover',
@@ -87,10 +86,10 @@ const Impact = () => {
           <div className="absolute inset-0 bg-theme-green bg-opacity-85" />
           
           <div className="container mx-auto px-4 text-center relative z-10">
-            <Target className="h-16 w-16 mx-auto mb-6 text-theme-gold animate-scale-in" />
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-poppins">Our Impact</h1>
-            <p className="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto leading-relaxed">
-              See the difference we're making in communities across Kenya
+            <TrendingUp className="h-12 w-12 mx-auto mb-4 text-white animate-scale-in" />
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">Our Impact</h1>
+            <p className="text-lg text-yellow-100 max-w-2xl mx-auto">
+              See how we're making a difference in children's lives
             </p>
           </div>
         </section>
