@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Settings, Calendar, MapPin, TrendingUp, LogOut, Plus, Edit, Trash, Mail, Eye } from "lucide-react";
+import { Settings, Calendar, MapPin, TrendingUp, LogOut, Plus, Edit, Trash, Mail, Eye, Download, Image as ImageIcon, Loader2 } from "lucide-react";
 import FileUpload from '@/components/FileUpload';
 import MultiFileUpload from '@/components/MultiFileUpload';
 
@@ -41,6 +41,11 @@ const Admin = () => {
 
   const [editingEvent, setEditingEvent] = useState<any>(null);
   const [editingVisit, setEditingVisit] = useState<any>(null);
+
+  // New state for social media post generation
+  const [postContent, setPostContent] = useState('');
+  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
+  const [generatingImage, setGeneratingImage] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -416,6 +421,59 @@ const Admin = () => {
     }
   };
 
+  // New function for generating social media images
+  const generateSocialMediaImage = async () => {
+    if (!postContent.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter some content for your post",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setGeneratingImage(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-image', {
+        body: { 
+          prompt: `Create a professional social media post image for Santa's Heart NGO with the following content: "${postContent}". Make it visually appealing with modern design, include elements that represent education, youth empowerment, and community impact in Kenya. Use warm, inspiring colors.` 
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.success) {
+        setGeneratedImage(data.image);
+        toast({
+          title: "Success",
+          description: "Image generated successfully!",
+        });
+      } else {
+        throw new Error(data.error || 'Failed to generate image');
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to generate image. Please try again.",
+        variant: "destructive",
+      });
+      console.error('Image generation error:', error);
+    } finally {
+      setGeneratingImage(false);
+    }
+  };
+
+  const downloadImage = () => {
+    if (!generatedImage) return;
+
+    const link = document.createElement('a');
+    link.href = generatedImage;
+    link.download = `santas-heart-post-${Date.now()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (!isAuthenticated) {
     return <AdminLogin onLogin={() => setIsAuthenticated(true)} />;
   }
@@ -438,7 +496,7 @@ const Admin = () => {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="messages" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="messages" className="flex items-center gap-2">
               <Mail className="h-4 w-4" />
               Messages
@@ -450,6 +508,10 @@ const Admin = () => {
             <TabsTrigger value="visits" className="flex items-center gap-2">
               <MapPin className="h-4 w-4" />
               Visits
+            </TabsTrigger>
+            <TabsTrigger value="social" className="flex items-center gap-2">
+              <ImageIcon className="h-4 w-4" />
+              Social Posts
             </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="h-4 w-4" />
@@ -797,6 +859,81 @@ const Admin = () => {
                     </div>
                   ))}
                 </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* New Social Posts Tab */}
+          <TabsContent value="social" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <ImageIcon className="h-5 w-5" />
+                  Generate Social Media Post
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label htmlFor="post-content">Post Content</Label>
+                  <Textarea
+                    id="post-content"
+                    value={postContent}
+                    onChange={(e) => setPostContent(e.target.value)}
+                    placeholder="Enter your post content here. This will be used to generate a matching image..."
+                    rows={6}
+                    className="mt-1"
+                  />
+                </div>
+                
+                <Button 
+                  onClick={generateSocialMediaImage}
+                  disabled={generatingImage || !postContent.trim()}
+                  className="bg-red-600 hover:bg-red-700"
+                >
+                  {generatingImage ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Generating Image...
+                    </>
+                  ) : (
+                    <>
+                      <ImageIcon className="h-4 w-4 mr-2" />
+                      Generate Image
+                    </>
+                  )}
+                </Button>
+
+                {generatedImage && (
+                  <div className="mt-6 space-y-4">
+                    <div className="border rounded-lg p-4">
+                      <h3 className="font-semibold mb-2">Generated Image:</h3>
+                      <img 
+                        src={generatedImage} 
+                        alt="Generated social media post" 
+                        className="max-w-full h-auto rounded-lg shadow-md"
+                      />
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <Button 
+                        onClick={downloadImage}
+                        className="bg-green-600 hover:bg-green-700"
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        Download Image
+                      </Button>
+                      <Button 
+                        onClick={() => {
+                          setGeneratedImage(null);
+                          setPostContent('');
+                        }}
+                        variant="outline"
+                      >
+                        Generate New Image
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
