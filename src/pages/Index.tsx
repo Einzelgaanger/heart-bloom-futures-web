@@ -2,12 +2,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart, BookOpen, Users, Brain, Target, ArrowRight, DollarSign, GraduationCap } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const navigate = useNavigate();
   
   const heroSlides = [
     {
@@ -38,6 +39,11 @@ const Index = () => {
     setCurrentSlide(index);
   };
 
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -51,7 +57,7 @@ const Index = () => {
               currentSlide === index ? "opacity-100" : "opacity-0"
             } ${slide.color}`}
           >
-            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute inset-0 bg-black/30" />
             
             <div className="relative h-full flex items-center justify-center text-white text-center px-4">
               <div className="max-w-3xl">
@@ -63,19 +69,21 @@ const Index = () => {
                   {slide.subtitle}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <Link to="/donate">
-                    <Button className="bg-white text-gray-900 hover:bg-gray-100">
-                      <Heart className="mr-2 h-4 w-4" />
-                      Donate Now
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                  <Link to="/programs">
-                    <Button variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900">
-                      <BookOpen className="mr-2 h-4 w-4" />
-                      Learn More
-                    </Button>
-                  </Link>
+                  <Button 
+                    onClick={() => handleNavigation('/donate')}
+                    className="bg-white text-gray-900 hover:bg-gray-100 font-semibold shadow-lg"
+                  >
+                    <Heart className="mr-2 h-4 w-4" />
+                    Donate Now
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                  <Button 
+                    onClick={() => handleNavigation('/programs')}
+                    className="bg-black/20 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold shadow-lg backdrop-blur-sm"
+                  >
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Learn More
+                  </Button>
                 </div>
               </div>
             </div>
@@ -234,19 +242,21 @@ const Index = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/donate">
-                <Button className="bg-yellow-500 text-gray-900 hover:bg-yellow-400">
-                  <Heart className="mr-2 h-4 w-4" />
-                  Support Us
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link to="/contact">
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-red-600">
-                  <Users className="mr-2 h-4 w-4" />
-                  Get Involved
-                </Button>
-              </Link>
+              <Button 
+                onClick={() => handleNavigation('/donate')}
+                className="bg-yellow-500 text-gray-900 hover:bg-yellow-400 font-semibold shadow-lg"
+              >
+                <Heart className="mr-2 h-4 w-4" />
+                Support Us
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button 
+                onClick={() => handleNavigation('/contact')}
+                className="bg-white/10 border-2 border-white text-white hover:bg-white hover:text-red-600 font-semibold shadow-lg backdrop-blur-sm"
+              >
+                <Users className="mr-2 h-4 w-4" />
+                Get Involved
+              </Button>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,8 +21,10 @@ const Events = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     fetchEvents();
   }, []);
 
@@ -31,7 +34,7 @@ const Events = () => {
         .from('events')
         .select('*')
         .gte('date', new Date().toISOString().split('T')[0])
-        .order('date', { ascending: true });
+        .order('date', { ascending: false }); // Latest first
 
       if (error) throw error;
       setEvents(data || []);
